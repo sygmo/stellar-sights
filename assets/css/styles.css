@@ -164,3 +164,15 @@ video {
 #info {
     font-size: 1.5rem;
 }
+
+.visibility {
+    background-color: aqua;
+}
+
+.weather {
+    background-color: aquamarine;
+}
+
+.available-bodies {
+    background-color: #1683a1;
+}
