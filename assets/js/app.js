@@ -19,9 +19,12 @@
 // getAstro()
 
 // var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
+// var zipcodeNUM = '07112' ;
+
 
 // Get weather function 
 // will grab weather information from API 
+// data responds in current, forecast , location
 
 console.log("start");
 //const getWeather () {
@@ -33,15 +36,18 @@ console.log("start");
           response.json()
             .then(function(data) {
               console.log(data);
+
+              console.log(data.current.condition);
+              console.log("day 1 " + data.forecast.forecastday[0]);
+              console.log("day 2 " + data.forecast.forecastday[1]);
+              console.log("day 3 " +data.forecast.forecastday[2]);
           });
         } else {
           console.log("error");
         }
       })
 
-// if(response.status===200){
-//         const data = await response.json()
-//         console.log(data)
-// }
-
 //}
+
+ 
+
