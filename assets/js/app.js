@@ -18,19 +18,30 @@
 
 // getAstro()
 
-// get weather 
-//
+// var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
-const getWeather () {
+// Get weather function 
+// will grab weather information from API 
+
+console.log("start");
+//const getWeather () {
     fetch('http://api.weatherapi.com/v1/forecast.json?key=27bbc4e6b84a47d1b13160933221101&q=07112&days=7')
-    // headers: new Headers(
-    //   {
-    //     "X-Requested-With": "XMLHttpRequest",
-    //     Authorization: `Basic ${hash}`
-    // })
+    
+      .then(function(response){
+        if (response.ok){
+          console.log(response);
+          response.json()
+            .then(function(data) {
+              console.log(data);
+          });
+        } else {
+          console.log("error");
+        }
+      })
 
-if(response.status===200){
-        const data = await response.json()
-        console.log(data)
-}
-}
+// if(response.status===200){
+//         const data = await response.json()
+//         console.log(data)
+// }
+
+//}
