@@ -20,7 +20,7 @@
 
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
-var zipcodeNUM = '07112' ;
+var zipcodeNUM = '78634' ;
 
 // Get weather function 
 // will grab weather information from API 
