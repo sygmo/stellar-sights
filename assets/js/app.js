@@ -18,36 +18,45 @@
 
 // getAstro()
 
-// var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
-// var zipcodeNUM = '07112' ;
-
+//** start of get weather function
+var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
+var zipcodeNUM = '07112' ;
 
 // Get weather function 
 // will grab weather information from API 
 // data responds in current, forecast , location
 
-console.log("start");
-//const getWeather () {
-    fetch('http://api.weatherapi.com/v1/forecast.json?key=27bbc4e6b84a47d1b13160933221101&q=07112&days=7')
+console.log("start Get Weather funtion");
+
+function getWeather () {
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + zipcodeNUM + '&days=3')
     
       .then(function(response){
         if (response.ok){
+
+          console.log("response ");
           console.log(response);
+
           response.json()
             .then(function(data) {
+
+              console.log("data ");
               console.log(data);
 
+              console.log("data current conditions ");
               console.log(data.current.condition);
-              console.log("day 1 " + data.forecast.forecastday[0]);
-              console.log("day 2 " + data.forecast.forecastday[1]);
-              console.log("day 3 " +data.forecast.forecastday[2]);
+              console.log("day 1 ");
+              console.log(data.forecast.forecastday[0]);
+              console.log("day 2 ");
+              console.log(data.forecast.forecastday[1]);
+              console.log("day 3 ");
+              console.log(data.forecast.forecastday[2]);
           });
         } else {
           console.log("error");
         }
       })
+}
 
-//}
-
- 
+getWeather(); 
 
