@@ -66,7 +66,66 @@ function getWeather () {
           console.log("error");
         }
       })
+
 }
 
 getWeather(); 
+
+
+
+    //pull from MapBox API for latitude and longitude
+const geocode = async()=>{
+    const response = await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g')
+    if(response.status === 200){
+      const data = await response.json()
+      console.log(data.features[0].center[0])
+    }
+    
+  }
+  geocode()
+  
+  // let address
+  // const geocode = async(address)=>{
+  //   const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
+  //   if(response.status === 200){
+  //     const data = await response.json()
+  //     console.log(data.features[0].center[0])
+  //   }
+    
+  // }
+  // geocode(address)
+  
+  let locationSaved = []
+  
+  const createdLocation = (input)=>{
+      locationSaved.push(input)
+      saveLocation()
+  }
+  
+  
+  const saveLocation = ()=>{
+    localStorage.setItem('location', JSON.stringify(locationSaved))
+  }
+  
+  
+  const loadLocation = ()=>{
+    const locationJSON = locationStorage.getItem('locationSaved')
+  
+    try{
+      locationSaved = locationJSON ? JSON.parse(locationJSON) : []
+    }catch (error){
+      locationSaved = []
+    }
+  }
+  
+  
+  const generateSavedLocation = (location)=>{
+    const locationEl = document.createElement('label')
+  
+    const locationText = document.createElement('span')
+    locationText.textContent = location.textContent
+    locationEl.appendChild(locationText)
+ 
+  }
+
 
