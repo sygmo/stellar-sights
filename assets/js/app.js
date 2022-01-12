@@ -2,6 +2,7 @@ const astroApiSecret = '6f14831c8a735ba5d7c78419de6f4bd9a270586412858868719ccdb6
 const astroApiId = '1ef02872-a5fd-4790-bebe-b572308c9bb6'
 const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
+
 var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
 
 var params = {
@@ -211,8 +212,4 @@ function redirect(event) {
 }
 
 $('#submit').on('click', redirect);
-
-
-
-
 
