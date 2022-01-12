@@ -53,12 +53,10 @@ var weatherLOCNUM = '30.542747,-97.550011' ;
 //global parameters to use to display on results screen 
 var weatherDisplay = document.querySelector('.weather');
 var weatherDATA;
-var weatherDAY = "current";
-var weatherTIME = "14";
 
 var precipitation;
-var Humidity; 
-var Wind;
+var Humidity = ""; 
+var Wind = "wind ";
 var cloudySKY;
 var temperature = "Temperature ";
 var icon;
@@ -75,14 +73,8 @@ function getWeather () {
 
           response.json()
             .then(function(data) {
-
+              // save data to global parameter to use in display function
               weatherDATA = data;
-
-              console.log("weatherDATA ");
-              console.log(weatherDATA);
-
-              console.log("day 1 ");
-              console.log(data.forecast.forecastday[0]);
 
               // moon phases, sunrise, susnset by day
               console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
@@ -94,7 +86,7 @@ function getWeather () {
               // display by day and hour
               console.log("humidity " + data.forecast.forecastday[0].day.avghumidity);
               console.log("chances of rain " + data.forecast.forecastday[0].day.daily_chance_of_rain);
-              console.log("By the hour conditions ");
+              console.log("temperature " + data.forecast.forecastday[0].hour[14].temp_f);
               console.log("Chance of rain " + data.forecast.forecastday[0].hour[0].chance_of_rain);
               console.log("Cloud " + data.forecast.forecastday[0].hour[0].cloud);
               console.log("Sky condition " + data.forecast.forecastday[0].hour[0].condition.text);              // console.log("day 2 ");
@@ -114,16 +106,35 @@ getWeather();
 // function will Display weather on results page
 // needs the parameters of date and time to pull data from the weatherDATA
 // weatherDAY , weatherTIME
+var weatherDAY = 0 ; //present = 0, future = 1,2
+var weatherTIME = 14;
 
 function weatherDATAdisplay (){
   // weatherDisplay
+  var weatherE1;
+ 
   console.log("weatherDATA ");
   console.log(weatherDATA);
+  var projectRow = document.createElement('ul');
+  var TemperatureEl = document.createElement('li');
+  var WindEl = document.createElement('li');
 
-  weatherDisplay.append(weatherDATA.forecast.forecastday[0].day.avghumidity);
-  weatherDisplay.append(weatherDATA.forecast.forecastday[0].day.daily_chance_of_rain);
+ 
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].temp_f;
+  TemperatureEl.textContent = temperature + weatherE1;
+
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].wind_mph;
+  WindEl.textContent = Wind + weatherE1;
 
 
+
+projectRow.append(
+  TemperatureEl,
+  WindEl);
+
+  // weatherDisplay.append(weatherDATA.forecast.forecastday[0].day.daily_chance_of_rain);
+
+weatherDisplay.append(projectRow);
 
 
 }
