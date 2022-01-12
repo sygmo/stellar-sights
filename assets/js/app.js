@@ -45,9 +45,10 @@ function getAstro() {
 
 
 getAstro()
+
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
-var zipcodeNUM = '78634' ;
+var weatherLOCNUM = '30.542747,-97.550011' ;
 
 // Get weather function 
 // will grab weather information from API 
@@ -56,7 +57,7 @@ var zipcodeNUM = '78634' ;
 console.log("start Get Weather funtion");
 
 function getWeather () {
-    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + zipcodeNUM + '&days=3')
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
       .then(function(response){
         if (response.ok){
