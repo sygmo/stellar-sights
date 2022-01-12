@@ -50,20 +50,25 @@ getAstro()
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 var weatherLOCNUM = '30.542747,-97.550011' ;
 
+//global parameters to use to display on results screen 
+var weatherDisplay = document.querySelector('.weather');
+
+var precipitation;
+var Humidity; 
+var Wind;
+var cloudySKY;
+var temperature;
+var icon;
+
 // Get weather function 
 // will grab weather information from API 
 // data responds in current, forecast , location
-
-console.log("start Get Weather funtion");
 
 function getWeather () {
     fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
       .then(function(response){
         if (response.ok){
-
-          console.log("response ");
-          console.log(response);
 
           response.json()
             .then(function(data) {
