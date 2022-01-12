@@ -98,8 +98,6 @@ function getWeather () {
 
 getWeather(); 
 
-
-
     //pull from MapBox API for latitude and longitude
 const geocode = async()=>{
     const response = await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g')
@@ -156,3 +154,21 @@ const geocode = async()=>{
   }
 
 
+  
+var locationInput = $('#location')[0];
+
+var locationName = "";
+
+// redirect from home page to results page
+function redirect(event) {
+  event.preventDefault();
+
+  // check that user inputted location
+  if (locationInput.value) {
+    locationName = locationInput.value;
+    //console.log(locationName);
+    location.replace("results.html");
+  } 
+}
+
+$('#submit').on('click', redirect);
