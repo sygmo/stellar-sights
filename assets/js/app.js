@@ -52,16 +52,19 @@ var weatherLOCNUM = '30.542747,-97.550011' ;
 
 //global parameters to use to display on results screen 
 var weatherDisplay = document.querySelector('.weather');
+var weatherDATA;
+var weatherDAY = "current";
+var weatherTIME = "14";
 
 var precipitation;
 var Humidity; 
 var Wind;
 var cloudySKY;
-var temperature;
+var temperature = "Temperature ";
 var icon;
 
 // Get weather function 
-// will grab weather information from API 
+// will grab weather information from API based on weatherLOCNUM
 // data responds in current, forecast , location
 
 function getWeather () {
@@ -73,27 +76,31 @@ function getWeather () {
           response.json()
             .then(function(data) {
 
-              console.log("data ");
-              console.log(data);
+              weatherDATA = data;
 
-              console.log("data current conditions ");
-              console.log(data.current.condition);
+              console.log("weatherDATA ");
+              console.log(weatherDATA);
+
               console.log("day 1 ");
               console.log(data.forecast.forecastday[0]);
+
+              // moon phases, sunrise, susnset by day
               console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
               console.log("Moonrise "+ data.forecast.forecastday[0].astro.moonrise);
               console.log("Moonset " + data.forecast.forecastday[0].astro.moonset);
               console.log("Sunrise " + data.forecast.forecastday[0].astro.sunrise);
               console.log("Sunset " + data.forecast.forecastday[0].astro.sunset);
+
+              // display by day and hour
               console.log("humidity " + data.forecast.forecastday[0].day.avghumidity);
               console.log("chances of rain " + data.forecast.forecastday[0].day.daily_chance_of_rain);
               console.log("By the hour conditions ");
               console.log("Chance of rain " + data.forecast.forecastday[0].hour[0].chance_of_rain);
               console.log("Cloud " + data.forecast.forecastday[0].hour[0].cloud);
               console.log("Sky condition " + data.forecast.forecastday[0].hour[0].condition.text);              // console.log("day 2 ");
-              // console.log(data.forecast.forecastday[1]);
-              // console.log("day 3 ");
-              // console.log(data.forecast.forecastday[2]);
+              
+              // display weather on results page
+              weatherDATAdisplay();
           });
         } else {
           console.log("error");
@@ -103,6 +110,23 @@ function getWeather () {
 }
 
 getWeather(); 
+
+// function will Display weather on results page
+// needs the parameters of date and time to pull data from the weatherDATA
+// weatherDAY , weatherTIME
+
+function weatherDATAdisplay (){
+  // weatherDisplay
+  console.log("weatherDATA ");
+  console.log(weatherDATA);
+
+  weatherDisplay.append(weatherDATA.forecast.forecastday[0].day.avghumidity);
+  weatherDisplay.append(weatherDATA.forecast.forecastday[0].day.daily_chance_of_rain);
+
+
+
+
+}
 
 
 
