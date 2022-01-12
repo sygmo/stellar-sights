@@ -39,7 +39,6 @@ function getAstro() {
             console.log('body position');
             console.log(data.body);
 
-
         });
 
 }
