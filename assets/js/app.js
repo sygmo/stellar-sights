@@ -54,13 +54,6 @@ var weatherLOCNUM = '30.542747,-97.550011' ;
 var weatherDisplay = document.querySelector('.weather');
 var weatherDATA;
 
-var precipitation;
-var Humidity = ""; 
-var Wind = "wind ";
-var cloudySKY;
-var temperature = "Temperature ";
-var icon;
-
 // Get weather function 
 // will grab weather information from API based on weatherLOCNUM
 // data responds in current, forecast , location
@@ -87,9 +80,9 @@ function getWeather () {
               console.log("humidity " + data.forecast.forecastday[0].day.avghumidity);
               console.log("chances of rain " + data.forecast.forecastday[0].day.daily_chance_of_rain);
               console.log("temperature " + data.forecast.forecastday[0].hour[14].temp_f);
-              console.log("Chance of rain " + data.forecast.forecastday[0].hour[0].chance_of_rain);
-              console.log("Cloud " + data.forecast.forecastday[0].hour[0].cloud);
-              console.log("Sky condition " + data.forecast.forecastday[0].hour[0].condition.text);              // console.log("day 2 ");
+              console.log("wind " + data.forecast.forecastday[0].hour[14].wind_mph);
+              console.log("Cloud " + data.forecast.forecastday[0].hour[14].cloud);
+              console.log("Sky condition " + data.forecast.forecastday[0].hour[14].condition.text);              // console.log("day 2 ");
               
               // display weather on results page
               weatherDATAdisplay();
@@ -99,46 +92,72 @@ function getWeather () {
         }
       })
 
-}
+} 
+// end of getWeather
 
 getWeather(); 
+
+var weatherDAY = 0 ; //present = 0, future = 1,2
+var weatherTIME = 14; // militari time 0 - 23
+
+var temperature = "Temperature ";
+var Wind = "wind: ";
+var precipitation = "Precipitation: ";
+var Humidity = "Humidity: ";
+var sckyCondition = "SKY Condition: ";
+var mph = " mph";
+var icon;
 
 // function will Display weather on results page
 // needs the parameters of date and time to pull data from the weatherDATA
 // weatherDAY , weatherTIME
-var weatherDAY = 0 ; //present = 0, future = 1,2
-var weatherTIME = 14;
-
 function weatherDATAdisplay (){
-  // weatherDisplay
+
   var weatherE1;
  
   console.log("weatherDATA ");
   console.log(weatherDATA);
+
   var projectRow = document.createElement('ul');
   var TemperatureEl = document.createElement('li');
   var WindEl = document.createElement('li');
-
+  var PrecipitationEl = document.createElement('li');
+  var HumidityEl = document.createElement('li');
+  var skyConditionEl = document.createElement('li');
+  
  
+  // display temperature
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].temp_f;
   TemperatureEl.textContent = temperature + weatherE1;
 
+  // display wind speed
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].wind_mph;
-  WindEl.textContent = Wind + weatherE1;
+  WindEl.textContent = Wind + weatherE1 + mph;
 
+  // display precipitation percentage
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].precip_in;
+  PrecipitationEl.textContent = precipitation + weatherE1;
 
+  // display humidity
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].humidity;
+  HumidityEl.textContent = Humidity + weatherE1;
 
-projectRow.append(
-  TemperatureEl,
-  WindEl);
+  // display skycondition
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
+  skyConditionEl.textContent = sckyCondition + weatherE1;
 
-  // weatherDisplay.append(weatherDATA.forecast.forecastday[0].day.daily_chance_of_rain);
+  // append to list
+  projectRow.append(
+    TemperatureEl,
+    WindEl,
+    PrecipitationEl,
+    HumidityEl,
+    skyConditionEl);
 
-weatherDisplay.append(projectRow);
-
-
+  // append list to the results page
+  weatherDisplay.append(projectRow);
 }
-
+// end of weatherDATAdisplay
 
 
     //pull from MapBox API for latitude and longitude
