@@ -281,23 +281,29 @@ const geocode = async()=>{
  
   }
 
+// dummy planet data
+var marsX = 277.29;
+var marsY = -55.17;
+var marsR = 17.37;
+var marsM = 1.488;
 
-  
-var locationInput = $('#location')[0];
+// created planet display using Materialize cards
+var availableBodiesDisplay = document.querySelector('.available-bodies');
+var planetCardEl = document.createElement('div');
+planetCardEl.setAttribute('class', 'card horizontal');
+var planetImageDivEl = document.createElement('div');
+planetImageDivEl.setAttribute('class', 'card-image valign-wrapper');
+var planetImageEl = document.createElement('img');
+planetImageEl.setAttribute('src', 'assets/img/planets/Mars.png');
+var planetContentEl = document.createElement('div');
+planetContentEl.setAttribute('class', 'card-content');
+var planetHeader = document.createElement('h4');
+planetHeader.textContent = "Mars" 
+var planetContent = document.createElement('p');
+planetContent.textContent = "Coordinates: " + marsX + ", " + marsY + " Horizon: " + marsR + " Brightness: " + marsM;
+planetImageDivEl.append(planetImageEl);
+planetContentEl.append(planetHeader, planetContent);
+planetCardEl.append(planetImageDivEl, planetContentEl);
+availableBodiesDisplay.append(planetCardEl);
 
-var locationName = "";
-
-// redirect from home page to results page
-function redirect(event) {
-  event.preventDefault();
-
-  // check that user inputted location
-  if (locationInput.value) {
-    locationName = locationInput.value;
-    //console.log(locationName);
-    location.replace("results.html");
-  } 
-}
-
-$('#submit').on('click', redirect);
-
+console.log(availableBodiesDisplay);
