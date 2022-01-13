@@ -85,19 +85,35 @@ function getAstro() {
 
 getAstro()
 
+// random lat and long to use in the location
+var latitude = 30.542747;
+var longitude = -97.550011;
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
 // this parameter will change, depending to input from user 
-var weatherLOCNUM = '30.542747,-97.550011' ;
+// var weatherLOCNUM = '30.542747,-97.550011' ;
+var weatherLOCNUM;
 
 // save a copy of the data received from API call
 var weatherDATA;
+
+// function will add latitude and longitude parameters in one single string
+function getWeatherParam (){
+  var lat = latitude.toString();
+  var lon = longitude.toString();
+
+  weatherLOCNUM = lat.concat(",",lon);
+}
 
 // Get weather function 
 // will grab weather information from API based on weatherLOCNUM
 // data responds in current, forecast , location
 function getWeather () {
+  // get latitude and longitude in one string
+  getWeatherParam();
+
+  //start fetch
     fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
       .then(function(response){
@@ -110,10 +126,10 @@ function getWeather () {
 
               // moon phases, sunrise, susnset by day
               console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
-              console.log("Moonrise "+ data.forecast.forecastday[0].astro.moonrise);
-              console.log("Moonset " + data.forecast.forecastday[0].astro.moonset);
-              console.log("Sunrise " + data.forecast.forecastday[0].astro.sunrise);
-              console.log("Sunset " + data.forecast.forecastday[0].astro.sunset);
+              console.log("Moonrise time "+ data.forecast.forecastday[0].astro.moonrise);
+              console.log("Moonset time " + data.forecast.forecastday[0].astro.moonset);
+              console.log("Sunrise time " + data.forecast.forecastday[0].astro.sunrise);
+              console.log("Sunset time " + data.forecast.forecastday[0].astro.sunset);
               
               // display weather on results page
               weatherDATAdisplay();
@@ -129,8 +145,8 @@ getWeather();
 
 
 // these variables will change depeending on user input/slider
-var weatherDAY = 0 ; //present = 0, future = 1,2
-var weatherTIME = 14; // militari time 0 - 23
+var weatherDAY = 1; //present = 0, one day in future = 1, two day in future =2
+var weatherTIME = 12; // military time 0 - 23
 
 // global parameters used on weather display
 var Wind = "Wind: ";
@@ -138,7 +154,7 @@ var Humidity = "Humidity: ";
 var Rain = "Chance of Rain: ";
 var sckyCondition = "SKY Condition: ";
 var mph = " mph";
-var persentageIcon = "%"
+var persentageIcon = "%";
 var icon = "http:";
  
 var weatherDisplay = document.querySelector('.weather');
@@ -157,8 +173,8 @@ var skyConditionEl = document.createElement('li');
 function weatherDATAdisplay (){
   var weatherE1;
  
-  // console.log("weatherDATA ");
-  // console.log(weatherDATA);
+  console.log("weatherDATA ");
+  console.log(weatherDATA);
 
   // display icon
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.icon;
@@ -203,11 +219,12 @@ function weatherDATAdisplay (){
 // end of weatherDATAdisplay
 
 function weathersetAtributes(){
-  //s set weather aatributes
+  // set weather atributes
     iconEl.setAttribute("style", "width:100% ");
     TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
     TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
     projectRow.setAttribute("style", "font-size: 12px");
+    weatherDisplay.setAttribute("style", "background-color: #36e5eb");
 }
 // end of weather atributes
 
