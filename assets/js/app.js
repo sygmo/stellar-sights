@@ -83,7 +83,6 @@ function getWeather () {
           console.log("error");
         }
       })
-
 } 
 // end of getWeather
 
@@ -169,6 +168,7 @@ function weathersetAtributes(){
     projectRow.setAttribute("style", "font-size: 12px");
 }
 // end of weather atributes
+
 
     //pull from MapBox API for latitude and longitude
 const geocode = async()=>{
