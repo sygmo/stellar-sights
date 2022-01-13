@@ -144,7 +144,7 @@ getWeather();
 
 
 // these variables will change depeending on user input/slider
-var weatherDAY = 0 ; //present = 0, future = 1,2
+var weatherDAY = 0 ; //present = 0, one day future = 1, two day in future =2
 var weatherTIME = 14; // military time 0 - 23
 
 // global parameters used on weather display
@@ -153,7 +153,7 @@ var Humidity = "Humidity: ";
 var Rain = "Chance of Rain: ";
 var sckyCondition = "SKY Condition: ";
 var mph = " mph";
-var persentageIcon = "%"
+var persentageIcon = "%";
 var icon = "http:";
  
 // var weatherDisplay = document.querySelector('.weather');
@@ -210,7 +210,7 @@ function weatherDATAdisplay (){
       skyConditionEl);
 
   // append list to the results page
-  var weatherDisplay = document.querySelector('.weather');
+  const weatherDisplay = document.querySelector(".weather");
 
   weatherDisplay.append(iconEl,projectRow);
   weathersetAtributes();
