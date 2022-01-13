@@ -3,8 +3,6 @@ const astroApiId = '1ef02872-a5fd-4790-bebe-b572308c9bb6'
 const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
 
-
-
 var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
 
 var params = {
@@ -35,13 +33,54 @@ function getAstro() {
             return response.json()
         })
         .then(function (data) {
-            console.log("data",data);
-            console.log('body position');
-            console.log(data.body);
-
+        console.log(data.data.table.rows)
+        console.log(data.data.table.rows[2].cells[0].position.equatorial)
+        console.log(data.data.table.rows[2].cells[0].position.equatorial.rightAscension)
+        console.log(data.data.table.rows[2].cells[0].position.equatorial.rightAscension.hours)
+        console.log(data.data.table.rows[2].cells[0].position.equatorial.rightAscension.string)
+        // Planet Position Variables
+        // PlanetX = X Coordinates     PlanetY = Y Coordinates     PlanetRise = 'dawn' of that planet based on input'
+        // PlanetM = Planet Magnitude: How bright the object is on a -(bright) to +(dull) scale. Sun is -27, naked eye limit is +6.5.
+        var lunaX = data.data.table.rows[1].cells[0].position.horizonal.azimuth.degrees
+        var lunaY = data.data.table.rows[1].cells[0].position.horizonal.altitude.degrees
+        var lunaRise = data.data.table.rows[1].cells[0].position.equatorial.rightAscension.hours
+        var lunaM = data.data.table.rows[1].cells[0].extraInfo.magnitude
+        var mercuryX = data.data.table.rows[2].cells[0].position.horizonal.azimuth.degrees
+        var mercuryY = data.data.table.rows[2].cells[0].position.horizonal.altitude.degrees
+        var mercuryRise = data.data.table.rows[2].cells[0].position.equatorial.rightAscension.hours
+        var mercuryM = data.data.table.rows[2].cells[0].extraInfo.magnitude
+        var venusX = data.data.table.rows[3].cells[0].position.horizonal.azimuth.degrees
+        var venusY = data.data.table.rows[3].cells[0].position.horizonal.altitude.degrees
+        var venusRise = data.data.table.rows[3].cells[0].position.equatorial.rightAscension.hours
+        var venusM = data.data.table.rows[3].cells[0].extraInfo.magnitude
+        var marsX = data.data.table.rows[5].cells[0].position.horizonal.azimuth.degrees
+        var marsY = data.data.table.rows[5].cells[0].position.horizonal.altitude.degrees
+        var marsRise = data.data.table.rows[5].cells[0].position.equatorial.rightAscension.hours
+        var marsM = data.data.table.rows[5].cells[0].extraInfo.magnitude
+        var jupiterX = data.data.table.rows[6].cells[0].position.horizonal.azimuth.degrees
+        var jupiterY = data.data.table.rows[6].cells[0].position.horizonal.altitude.degrees
+        var jupiterRise = data.data.table.rows[6].cells[0].position.equatorial.rightAscension.hours
+        var jupiterM = data.data.table.rows[6].cells[0].extraInfo.magnitude
+        var saturnX = data.data.table.rows[7].cells[0].position.horizonal.azimuth.degrees
+        var saturnY = data.data.table.rows[7].cells[0].position.horizonal.altitude.degrees
+        var saturnRise = data.data.table.rows[7].cells[0].position.equatorial.rightAscension.hours
+        var saturnM = data.data.table.rows[7].cells[0].extraInfo.magnitude
+        var neptuneX = data.data.table.rows[8].cells[0].position.horizonal.azimuth.degrees
+        var neptuneY = data.data.table.rows[8].cells[0].position.horizonal.altitude.degrees
+        var neptuneRise = data.data.table.rows[8].cells[0].position.equatorial.rightAscension.hours
+        var neptuneM = data.data.table.rows[8].cells[0].extraInfo.magnitude
+        var uranusX = data.data.table.rows[9].cells[0].position.horizonal.azimuth.degrees
+        var uranusY = data.data.table.rows[9].cells[0].position.horizonal.altitude.degrees
+        var uranusRise = data.data.table.rows[9].cells[0].position.equatorial.rightAscension.hours
+        var uranusM = data.data.table.rows[9].cells[0].extraInfo.magnitude
+        var plutoX = data.data.table.rows[10].cells[0].position.horizonal.azimuth.degrees
+        var plutoY = data.data.table.rows[10].cells[0].position.horizonal.altitude.degrees
+        var plutoRise = data.data.table.rows[10].cells[0].position.equatorial.rightAscension.hours
+        var plutoM = data.data.table.rows[10].cells[0].extraInfo.magnitude
         });
-
+        
 }
+
 
 
 getAstro()
@@ -87,6 +126,7 @@ function getWeather () {
 // end of getWeather
 
 getWeather(); 
+
 
 // these variables will change depeending on user input/slider
 var weatherDAY = 0 ; //present = 0, future = 1,2
@@ -225,4 +265,23 @@ const geocode = async()=>{
  
   }
 
+
+  
+var locationInput = $('#location')[0];
+
+var locationName = "";
+
+// redirect from home page to results page
+function redirect(event) {
+  event.preventDefault();
+
+  // check that user inputted location
+  if (locationInput.value) {
+    locationName = locationInput.value;
+    //console.log(locationName);
+    location.replace("results.html");
+  } 
+}
+
+$('#submit').on('click', redirect);
 
