@@ -185,6 +185,8 @@ function weatherDATAdisplay (){
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
   skyConditionEl.textContent = sckyCondition + weatherE1;
 
+  populateBanner(weatherE1); // sends weather conditions to results banner
+
   // append to list
   projectRow.append(
       TemperatureEl,
@@ -209,6 +211,23 @@ function weathersetAtributes(){
 }
 // end of weather atributes
 
+// banner loudly declares if planets are visible or not, depending on sky conditions
+function populateBanner(conditions) {
+  var conditions = conditions.toLowerCase();
+  var bannerHeader = document.querySelector(".bannerText");
+  console.log("weather conditions: " + conditions);
+
+  if (conditions == "sunny" || conditions == "clear") {
+    // display "all-clear" banner
+    bannerHeader.textContent = "All clear! The following planets are visible:";
+  } else if (conditions.includes("patchy") || conditions.includes("partly")) {
+    // display "possible" banner
+    bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
+  } else {
+    // display "no visibility banner"
+    bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
+  }
+}
 
     //pull from MapBox API for latitude and longitude
 const geocode = async()=>{
@@ -218,8 +237,8 @@ const geocode = async()=>{
       console.log(data.features[0].center[0])
     }
     
-  }
-  geocode()
+}
+geocode()
   
   // let address
   // const geocode = async(address)=>{
@@ -232,20 +251,21 @@ const geocode = async()=>{
   // }
   // geocode(address)
   
-  let locationSaved = []
+let locationSaved = []
   
-  const createdLocation = (input)=>{
+const createdLocation = (input)=>{
       locationSaved.push(input)
       saveLocation()
-  }
+}
   
   
-  const saveLocation = ()=>{
+const saveLocation = ()=>{
     localStorage.setItem('location', JSON.stringify(locationSaved))
-  }
+}
   
   
-  const loadLocation = ()=>{
+const loadLocation = ()=>{
+
     const locationJSON = locationStorage.getItem('locationSaved')
   
     try{
@@ -253,17 +273,16 @@ const geocode = async()=>{
     }catch (error){
       locationSaved = []
     }
-  }
+}
   
   
-  const generateSavedLocation = (location)=>{
+const generateSavedLocation = (location)=>{
     const locationEl = document.createElement('label')
   
     const locationText = document.createElement('span')
     locationText.textContent = location.textContent
     locationEl.appendChild(locationText)
- 
-  }
+}
 
 // dummy planet data
 var marsX = 277.29;
@@ -272,6 +291,7 @@ var marsR = 17.37;
 var marsM = 1.488;
 
 // created planet display using Materialize cards
+// TODO: loop through available planets
 var availableBodiesDisplay = document.querySelector('.available-bodies');
 var planetCardEl = document.createElement('div');
 planetCardEl.setAttribute('class', 'card horizontal');
@@ -290,7 +310,6 @@ planetContentEl.append(planetHeader, planetContent);
 planetCardEl.append(planetImageDivEl, planetContentEl);
 availableBodiesDisplay.append(planetCardEl);
 
-console.log(availableBodiesDisplay);
 
 //js slider code
 var slider = document.getElementById('test-slider');
@@ -306,5 +325,5 @@ var slider = document.getElementById('test-slider');
    format: wNumb({
      decimals: 0
    })
-  });
-        
+ });
+       

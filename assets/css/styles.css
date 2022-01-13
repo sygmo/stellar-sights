@@ -152,6 +152,7 @@ video {
     text-align: center;
     padding:1rem;
 }
+
 #what .items .item i {
     background:linear-gradient(to right,#0e466e,#0a557c,#086489,#0c7396,#1683a1);
     padding: 1rem;
@@ -165,15 +166,13 @@ video {
 }
 
 .visibility {
-    background-color: aqua;
 }
 
 .weather {
-    border: #333 solid 2px;
+    border: black solid 2px;
 }
 
 .available-bodies {
-    /* background-color: #1683a1; */
 }
 
 .card-content {
@@ -182,4 +181,3 @@ video {
 
 h4 {
     margin: 5px 0;
-}
