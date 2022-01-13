@@ -98,6 +98,7 @@ var weatherLOCNUM;
 // save a copy of the data received from API call
 var weatherDATA;
 
+// function will add latitude and longitude parameters in one single string
 function getWeatherParam (){
   var lat = latitude.toString();
   var lon = longitude.toString();
@@ -125,10 +126,10 @@ function getWeather () {
 
               // moon phases, sunrise, susnset by day
               console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
-              console.log("Moonrise "+ data.forecast.forecastday[0].astro.moonrise);
-              console.log("Moonset " + data.forecast.forecastday[0].astro.moonset);
-              console.log("Sunrise " + data.forecast.forecastday[0].astro.sunrise);
-              console.log("Sunset " + data.forecast.forecastday[0].astro.sunset);
+              console.log("Moonrise time "+ data.forecast.forecastday[0].astro.moonrise);
+              console.log("Moonset time " + data.forecast.forecastday[0].astro.moonset);
+              console.log("Sunrise time " + data.forecast.forecastday[0].astro.sunrise);
+              console.log("Sunset time " + data.forecast.forecastday[0].astro.sunset);
               
               // display weather on results page
               weatherDATAdisplay();
@@ -144,8 +145,8 @@ getWeather();
 
 
 // these variables will change depeending on user input/slider
-var weatherDAY = 0 ; //present = 0, one day future = 1, two day in future =2
-var weatherTIME = 14; // military time 0 - 23
+var weatherDAY = 1; //present = 0, one day in future = 1, two day in future =2
+var weatherTIME = 12; // military time 0 - 23
 
 // global parameters used on weather display
 var Wind = "Wind: ";
@@ -156,7 +157,7 @@ var mph = " mph";
 var persentageIcon = "%";
 var icon = "http:";
  
-// var weatherDisplay = document.querySelector('.weather');
+var weatherDisplay = document.querySelector('.weather');
 var iconEl = document.createElement('img');
 var projectRow = document.createElement('ul');
 var TemperatureEl = document.createElement('li');
@@ -172,8 +173,8 @@ var skyConditionEl = document.createElement('li');
 function weatherDATAdisplay (){
   var weatherE1;
  
-  // console.log("weatherDATA ");
-  // console.log(weatherDATA);
+  console.log("weatherDATA ");
+  console.log(weatherDATA);
 
   // display icon
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.icon;
@@ -210,15 +211,13 @@ function weatherDATAdisplay (){
       skyConditionEl);
 
   // append list to the results page
-  const weatherDisplay = document.querySelector(".weather");
-
   weatherDisplay.append(iconEl,projectRow);
   weathersetAtributes();
 }
 // end of weatherDATAdisplay
 
 function weathersetAtributes(){
-  //s set weather aatributes
+  // set weather atributes
     iconEl.setAttribute("style", "width:100% ");
     TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
     TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
