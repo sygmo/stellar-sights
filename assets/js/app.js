@@ -184,6 +184,7 @@ function weatherDATAdisplay (){
   // display skycondition
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
   skyConditionEl.textContent = sckyCondition + weatherE1;
+
   populateBanner(weatherE1); // sends weather conditions to results banner
 
   // append to list
@@ -228,7 +229,6 @@ function populateBanner(conditions) {
   }
 }
 
-
     //pull from MapBox API for latitude and longitude
 const geocode = async()=>{
     const response = await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g')
@@ -265,6 +265,7 @@ const saveLocation = ()=>{
   
   
 const loadLocation = ()=>{
+
     const locationJSON = locationStorage.getItem('locationSaved')
   
     try{
@@ -281,7 +282,6 @@ const generateSavedLocation = (location)=>{
     const locationText = document.createElement('span')
     locationText.textContent = location.textContent
     locationEl.appendChild(locationText)
- 
 }
 
 // dummy planet data
@@ -310,4 +310,20 @@ planetContentEl.append(planetHeader, planetContent);
 planetCardEl.append(planetImageDivEl, planetContentEl);
 availableBodiesDisplay.append(planetCardEl);
 
-console.log(availableBodiesDisplay);
+
+//js slider code
+var slider = document.getElementById('test-slider');
+  noUiSlider.create(slider, {
+   start: [20, 80],
+   connect: true,
+   step: 1,
+   orientation: 'horizontal', // 'horizontal' or 'vertical'
+   range: {
+     'min': 0,
+     'max': 100
+   },
+   format: wNumb({
+     decimals: 0
+   })
+ });
+       

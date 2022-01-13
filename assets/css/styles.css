@@ -166,8 +166,6 @@ video {
 }
 
 .visibility {
-    border: black solid 2px;
-    border-radius: 25px;
 }
 
 .weather {
@@ -183,4 +181,3 @@ video {
 
 h4 {
     margin: 5px 0;
-}
