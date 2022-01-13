@@ -85,19 +85,34 @@ function getAstro() {
 
 getAstro()
 
+// random lat and long to use in the location
+var latitude = 30.542747;
+var longitude = -97.550011;
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
 // this parameter will change, depending to input from user 
-var weatherLOCNUM = '30.542747,-97.550011' ;
+// var weatherLOCNUM = '30.542747,-97.550011' ;
+var weatherLOCNUM;
 
 // save a copy of the data received from API call
 var weatherDATA;
+
+function getWeatherParam (){
+  var lat = latitude.toString();
+  var lon = longitude.toString();
+
+  weatherLOCNUM = lat.concat(",",lon);
+}
 
 // Get weather function 
 // will grab weather information from API based on weatherLOCNUM
 // data responds in current, forecast , location
 function getWeather () {
+  // get latitude and longitude in one string
+  getWeatherParam();
+
+  //start fetch
     fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
       .then(function(response){
@@ -130,7 +145,7 @@ getWeather();
 
 // these variables will change depeending on user input/slider
 var weatherDAY = 0 ; //present = 0, future = 1,2
-var weatherTIME = 14; // militari time 0 - 23
+var weatherTIME = 14; // military time 0 - 23
 
 // global parameters used on weather display
 var Wind = "Wind: ";
