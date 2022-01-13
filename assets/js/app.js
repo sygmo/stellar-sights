@@ -100,13 +100,23 @@ getWeather();
 var weatherDAY = 0 ; //present = 0, future = 1,2
 var weatherTIME = 14; // militari time 0 - 23
 
-var temperature = "Temperature ";
-var Wind = "wind: ";
+// var temperature = "Temperature ";
+var Wind = "Wind: ";
 var precipitation = "Precipitation: ";
 var Humidity = "Humidity: ";
+var HumidityIcon = "%"
 var sckyCondition = "SKY Condition: ";
 var mph = " mph";
-var icon;
+var icon = "http:";
+
+var iconEl = document.createElement('img');
+var projectRow = document.createElement('ul');
+var TemperatureEl = document.createElement('li');
+var TemperatureEl2 = document.createElement('li');
+var WindEl = document.createElement('li');
+var PrecipitationEl = document.createElement('li');
+var HumidityEl = document.createElement('li');
+var skyConditionEl = document.createElement('li');
 
 // function will Display weather on results page
 // needs the parameters of date and time to pull data from the weatherDATA
@@ -118,17 +128,14 @@ function weatherDATAdisplay (){
   console.log("weatherDATA ");
   console.log(weatherDATA);
 
-  var projectRow = document.createElement('ul');
-  var TemperatureEl = document.createElement('li');
-  var WindEl = document.createElement('li');
-  var PrecipitationEl = document.createElement('li');
-  var HumidityEl = document.createElement('li');
-  var skyConditionEl = document.createElement('li');
-  
- 
+  // display icon
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.icon;
+  iconEl.src = icon + weatherE1;
+
   // display temperature
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].temp_f;
-  TemperatureEl.textContent = temperature + weatherE1;
+  TemperatureEl.textContent = weatherE1;
+  TemperatureEl2.textContent = "Temperature";
 
   // display wind speed
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].wind_mph;
@@ -140,7 +147,7 @@ function weatherDATAdisplay (){
 
   // display humidity
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].humidity;
-  HumidityEl.textContent = Humidity + weatherE1;
+  HumidityEl.textContent = Humidity + weatherE1 + HumidityIcon;
 
   // display skycondition
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
@@ -149,15 +156,36 @@ function weatherDATAdisplay (){
   // append to list
   projectRow.append(
     TemperatureEl,
+    TemperatureEl2,
     WindEl,
     PrecipitationEl,
     HumidityEl,
     skyConditionEl);
 
   // append list to the results page
-  weatherDisplay.append(projectRow);
+  weatherDisplay.append(iconEl,projectRow);
+  weathersetAtributes();
 }
 // end of weatherDATAdisplay
+
+function weathersetAtributes(){
+iconEl ;
+projectRow ;
+TemperatureEl ;
+TemperatureEl2;
+WindEl ;
+PrecipitationEl ;
+HumidityEl ;
+skyConditionEl ;
+
+iconEl.setAttribute("style", "width:100%");
+TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
+TemperatureEl2.setAttribute("style", "font-size: 18px");
+projectRow.setAttribute("style", "font-size: 12px");
+
+
+
+}
 
 
     //pull from MapBox API for latitude and longitude
