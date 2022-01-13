@@ -4,8 +4,8 @@ const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
 //////////////////
 //variables changed in geocode function to be used in astro api and weather api
-let latitude
-let longitude
+let latitude;
+let longitude;
 //////////////////
 
 
@@ -93,8 +93,8 @@ function getAstro() {
 getAstro()
 
 // random lat and long to use in the location
-var latitude = 30.542747;
-var longitude = -97.550011;
+// var latitude = 30.542747;
+// var longitude = -97.550011;
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
@@ -107,10 +107,15 @@ var weatherDATA;
 
 // function will add latitude and longitude parameters in one single string
 function getWeatherParam (){
-  var lat = latitude.toString();
-  var lon = longitude.toString();
+  console.log()
+  var latitude1 = latitude;
+  var longitude1 = longitude;
+  // var lat = latitude1.toString();
+  // var lon = longitude1.toString();
 
-  weatherLOCNUM = lat.concat(",",lon);
+  weatherLOCNUM = latitude1 + "," + longitude1;
+  // weatherLOCNUM = latitude1.concat(",",longitude1);
+  // weatherLOCNUM = lat.concat(",",lon);
 }
 
 // Get weather function 
@@ -347,11 +352,7 @@ const saveLocation = ()=>{
     }
     generateSavedLocation()
   
- /////////////////////////////////////////////   
-
-}
-  
-  
+ /////////////////////////////////////////////     
 
 // dummy planet data
 var marsX = 277.29;
