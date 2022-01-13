@@ -87,56 +87,128 @@ getAstro()
 
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
-var zipcodeNUM = '78634' ;
+
+// this parameter will change, depending to input from user 
+var weatherLOCNUM = '30.542747,-97.550011' ;
+
+// save a copy of the data received from API call
+var weatherDATA;
 
 // Get weather function 
-// will grab weather information from API 
+// will grab weather information from API based on weatherLOCNUM
 // data responds in current, forecast , location
-
-console.log("start Get Weather funtion");
-
 function getWeather () {
-    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + zipcodeNUM + '&days=3')
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
       .then(function(response){
         if (response.ok){
 
-          console.log("response ");
-          console.log(response);
-
           response.json()
             .then(function(data) {
+              // save data to global parameter to use in display function
+              weatherDATA = data;
 
-              console.log("data ");
-              console.log(data);
-
-              console.log("data current conditions ");
-              console.log(data.current.condition);
-              console.log("day 1 ");
-              console.log(data.forecast.forecastday[0]);
+              // moon phases, sunrise, susnset by day
               console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
               console.log("Moonrise "+ data.forecast.forecastday[0].astro.moonrise);
               console.log("Moonset " + data.forecast.forecastday[0].astro.moonset);
               console.log("Sunrise " + data.forecast.forecastday[0].astro.sunrise);
               console.log("Sunset " + data.forecast.forecastday[0].astro.sunset);
-              console.log("humidity " + data.forecast.forecastday[0].day.avghumidity);
-              console.log("chances of rain " + data.forecast.forecastday[0].day.daily_chance_of_rain);
-              console.log("By the hour conditions ");
-              console.log("Chance of rain " + data.forecast.forecastday[0].hour[0].chance_of_rain);
-              console.log("Cloud " + data.forecast.forecastday[0].hour[0].cloud);
-              console.log("Sky condition " + data.forecast.forecastday[0].hour[0].condition.text);              // console.log("day 2 ");
-              // console.log(data.forecast.forecastday[1]);
-              // console.log("day 3 ");
-              // console.log(data.forecast.forecastday[2]);
+              
+              // display weather on results page
+              weatherDATAdisplay();
           });
         } else {
           console.log("error");
         }
       })
-
-}
+} 
+// end of getWeather
 
 getWeather(); 
+
+
+// these variables will change depeending on user input/slider
+var weatherDAY = 0 ; //present = 0, future = 1,2
+var weatherTIME = 14; // militari time 0 - 23
+
+// global parameters used on weather display
+var Wind = "Wind: ";
+var Humidity = "Humidity: ";
+var Rain = "Chance of Rain: ";
+var sckyCondition = "SKY Condition: ";
+var mph = " mph";
+var persentageIcon = "%"
+var icon = "http:";
+ 
+var weatherDisplay = document.querySelector('.weather');
+var iconEl = document.createElement('img');
+var projectRow = document.createElement('ul');
+var TemperatureEl = document.createElement('li');
+var TemperatureEl2 = document.createElement('li');
+var WindEl = document.createElement('li');
+var RainEl = document.createElement('li');
+var HumidityEl = document.createElement('li');
+var skyConditionEl = document.createElement('li');
+
+// function will Display weather on results page
+// needs the parameters of date and time to pull data from the weatherDATA
+// weatherDAY , weatherTIME
+function weatherDATAdisplay (){
+  var weatherE1;
+ 
+  // console.log("weatherDATA ");
+  // console.log(weatherDATA);
+
+  // display icon
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.icon;
+  iconEl.src = icon + weatherE1;
+
+  // display temperature
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].temp_f;
+  TemperatureEl.textContent = weatherE1;
+  TemperatureEl2.textContent = "Temperature";
+
+  // display wind speed
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].wind_mph;
+  WindEl.textContent = Wind + weatherE1 + mph;
+
+  // display humidity
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].humidity;
+  HumidityEl.textContent = Humidity + weatherE1 + persentageIcon;
+
+  // display precipitation percentage
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].chance_of_rain;
+  RainEl.textContent = Rain + weatherE1 + persentageIcon;
+
+  // display skycondition
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
+  skyConditionEl.textContent = sckyCondition + weatherE1;
+
+  // append to list
+  projectRow.append(
+      TemperatureEl,
+      TemperatureEl2,
+      WindEl,
+      HumidityEl,
+      RainEl,
+      skyConditionEl);
+
+  // append list to the results page
+  weatherDisplay.append(iconEl,projectRow);
+  weathersetAtributes();
+}
+// end of weatherDATAdisplay
+
+function weathersetAtributes(){
+  //s set weather aatributes
+    iconEl.setAttribute("style", "width:100% ");
+    TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
+    TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
+    projectRow.setAttribute("style", "font-size: 12px");
+}
+// end of weather atributes
+
 
     //pull from MapBox API for latitude and longitude
 const geocode = async()=>{
