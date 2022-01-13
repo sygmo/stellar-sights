@@ -48,16 +48,16 @@ getAstro()
 
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
+
+// this parameter will change, depending to input from user 
 var weatherLOCNUM = '30.542747,-97.550011' ;
 
-//global parameters to use to display on results screen 
-var weatherDisplay = document.querySelector('.weather');
+// save a copy of the data received from API call
 var weatherDATA;
 
 // Get weather function 
 // will grab weather information from API based on weatherLOCNUM
 // data responds in current, forecast , location
-
 function getWeather () {
     fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
@@ -75,14 +75,6 @@ function getWeather () {
               console.log("Moonset " + data.forecast.forecastday[0].astro.moonset);
               console.log("Sunrise " + data.forecast.forecastday[0].astro.sunrise);
               console.log("Sunset " + data.forecast.forecastday[0].astro.sunset);
-
-              // display by day and hour
-              console.log("humidity " + data.forecast.forecastday[0].day.avghumidity);
-              console.log("chances of rain " + data.forecast.forecastday[0].day.daily_chance_of_rain);
-              console.log("temperature " + data.forecast.forecastday[0].hour[14].temp_f);
-              console.log("wind " + data.forecast.forecastday[0].hour[14].wind_mph);
-              console.log("Cloud " + data.forecast.forecastday[0].hour[14].cloud);
-              console.log("Sky condition " + data.forecast.forecastday[0].hour[14].condition.text);              // console.log("day 2 ");
               
               // display weather on results page
               weatherDATAdisplay();
@@ -97,24 +89,26 @@ function getWeather () {
 
 getWeather(); 
 
+// these variables will change depeending on user input/slider
 var weatherDAY = 0 ; //present = 0, future = 1,2
 var weatherTIME = 14; // militari time 0 - 23
 
-// var temperature = "Temperature ";
+// global parameters used on weather display
 var Wind = "Wind: ";
-var precipitation = "Precipitation: ";
 var Humidity = "Humidity: ";
-var HumidityIcon = "%"
+var Rain = "Chance of Rain: ";
 var sckyCondition = "SKY Condition: ";
 var mph = " mph";
+var persentageIcon = "%"
 var icon = "http:";
-
+ 
+var weatherDisplay = document.querySelector('.weather');
 var iconEl = document.createElement('img');
 var projectRow = document.createElement('ul');
 var TemperatureEl = document.createElement('li');
 var TemperatureEl2 = document.createElement('li');
 var WindEl = document.createElement('li');
-var PrecipitationEl = document.createElement('li');
+var RainEl = document.createElement('li');
 var HumidityEl = document.createElement('li');
 var skyConditionEl = document.createElement('li');
 
@@ -122,11 +116,10 @@ var skyConditionEl = document.createElement('li');
 // needs the parameters of date and time to pull data from the weatherDATA
 // weatherDAY , weatherTIME
 function weatherDATAdisplay (){
-
   var weatherE1;
  
-  console.log("weatherDATA ");
-  console.log(weatherDATA);
+  // console.log("weatherDATA ");
+  // console.log(weatherDATA);
 
   // display icon
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.icon;
@@ -141,13 +134,13 @@ function weatherDATAdisplay (){
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].wind_mph;
   WindEl.textContent = Wind + weatherE1 + mph;
 
-  // display precipitation percentage
-  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].precip_in;
-  PrecipitationEl.textContent = precipitation + weatherE1;
-
   // display humidity
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].humidity;
-  HumidityEl.textContent = Humidity + weatherE1 + HumidityIcon;
+  HumidityEl.textContent = Humidity + weatherE1 + persentageIcon;
+
+  // display precipitation percentage
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].chance_of_rain;
+  RainEl.textContent = Rain + weatherE1 + persentageIcon;
 
   // display skycondition
   weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
@@ -155,12 +148,12 @@ function weatherDATAdisplay (){
 
   // append to list
   projectRow.append(
-    TemperatureEl,
-    TemperatureEl2,
-    WindEl,
-    PrecipitationEl,
-    HumidityEl,
-    skyConditionEl);
+      TemperatureEl,
+      TemperatureEl2,
+      WindEl,
+      HumidityEl,
+      RainEl,
+      skyConditionEl);
 
   // append list to the results page
   weatherDisplay.append(iconEl,projectRow);
@@ -169,24 +162,13 @@ function weatherDATAdisplay (){
 // end of weatherDATAdisplay
 
 function weathersetAtributes(){
-iconEl ;
-projectRow ;
-TemperatureEl ;
-TemperatureEl2;
-WindEl ;
-PrecipitationEl ;
-HumidityEl ;
-skyConditionEl ;
-
-iconEl.setAttribute("style", "width:100%");
-TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
-TemperatureEl2.setAttribute("style", "font-size: 18px");
-projectRow.setAttribute("style", "font-size: 12px");
-
-
-
+  //s set weather aatributes
+    iconEl.setAttribute("style", "width:100% ");
+    TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
+    TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
+    projectRow.setAttribute("style", "font-size: 12px");
 }
-
+// end of weather atributes
 
     //pull from MapBox API for latitude and longitude
 const geocode = async()=>{
