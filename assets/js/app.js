@@ -222,6 +222,7 @@ function weathersetAtributes(){
     TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
     TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
     projectRow.setAttribute("style", "font-size: 12px");
+    weatherDisplay.setAttribute("style", "background-color: #36e5eb");
 }
 // end of weather atributes
 
