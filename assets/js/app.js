@@ -156,7 +156,7 @@ var mph = " mph";
 var persentageIcon = "%"
 var icon = "http:";
  
-var weatherDisplay = document.querySelector('.weather');
+// var weatherDisplay = document.querySelector('.weather');
 var iconEl = document.createElement('img');
 var projectRow = document.createElement('ul');
 var TemperatureEl = document.createElement('li');
@@ -210,6 +210,8 @@ function weatherDATAdisplay (){
       skyConditionEl);
 
   // append list to the results page
+  var weatherDisplay = document.querySelector('.weather');
+
   weatherDisplay.append(iconEl,projectRow);
   weathersetAtributes();
 }
