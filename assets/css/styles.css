@@ -166,13 +166,19 @@ video {
 }
 
 .visibility {
-    background-color: aqua;
+    background-color: #00ffff;
 }
 
 .weather {
-    background-color: aquamarine;
+    border: black solid 2px;
 }
 
 .available-bodies {
-    background-color: #1683a1;
 }
+
+.card-content {
+    width: 100%;
+}
+
+h4 {
+    margin: 5px 0;
