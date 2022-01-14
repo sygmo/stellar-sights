@@ -381,7 +381,7 @@ inputAddress.addEventListener('submit', (e)=>{
     // getPlanetInfo(latitude, longitude);
     document.location.replace(redirectURL);
     generateWeather(latitude, longitude);
-    
+  
   }
 
   
