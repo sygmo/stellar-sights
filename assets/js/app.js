@@ -4,13 +4,11 @@ const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
 //////////////////
 //variables changed in geocode function to be used in astro api and weather api
-// let latitude
-// let longitude
+let latitude
+let longitude
 //////////////////
 
-
-
-var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
+ var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
 
 // var params = {
 //     longitude: longitude,
@@ -189,9 +187,10 @@ var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
 
 // getAstro()
 
+const generateWeather =(latitude, longitude)=>{
 // random lat and long to use in the location
-var latitude = 30.542747;
-var longitude = -97.550011;
+// var latitude = 30.542747;
+// var longitude = -97.550011;
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
@@ -206,7 +205,6 @@ var weatherDATA;
 function getWeatherParam (){
   var lat = latitude.toString();
   var lon = longitude.toString();
-
   weatherLOCNUM = lat.concat(",",lon);
 }
 
@@ -245,10 +243,7 @@ function getWeather () {
 } 
 // end of getWeather
 
-
 getWeather(); 
-
-
 
 // these variables will change depeending on user input/slider
 var weatherDAY = 1; //present = 0, one day in future = 1, two day in future =2
@@ -321,7 +316,6 @@ function weatherDATAdisplay (){
   // append list to the results page
   weatherDisplay.append(iconEl,projectRow);
   weathersetAtributes();
-
 }
 // end of weatherDATAdisplay
 
@@ -343,116 +337,113 @@ function populateBanner(conditions) {
 
   if (conditions == "sunny" || conditions == "clear") {
     // display "all-clear" banner
-    bannerHeader.textContent = "All clear! The following  planets are visible:";
+    bannerHeader.textContent = "All clear! The following planets are visible:";
   } else if (conditions.includes("patchy") || conditions.includes("partly")) {
     // display "possible" banner
     bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
   } else {
     // display "no visibility banner"
-    bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
+    bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:";
   }
 }
-// end of weatherDATAdisplay
+
+}//////end of generateWeather function
+
 
 
 ///////////////////////////////////////////////
 //pull from MapBox API for latitude and longitude
-// let address
-// let inputAddress = document.querySelector('#location-input')
-// inputAddress.addEventListener('submit', (e)=>{
-//   e.preventDefault()
-//   console.log(e.target.elements[0].value)
-//   address = e.target.elements[0].value
-//   e.target.elements[0].value = ''
-//   geocode(address)
-//   createdLocation(address)
-//   generateSavedLocation()
-// })
+let address
+let inputAddress = document.querySelector('#location-input')
+inputAddress.addEventListener('submit', (e)=>{
+  e.preventDefault()
+  console.log(e.target.elements[0].value)
+  address = e.target.elements[0].value
+  e.target.elements[0].value = ''
+  geocode(address)
+  createdLocation(address)
+  generateSavedLocation()
+})
   
-//   const geocode = async(address)=>{
-//     const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
-//     if(response.status === 200){
-//       const data = await response.json()
-//       console.log(data)
-//       console.log(data.features[0].center[0])
-//       console.log(data.features[0].center[1])
-//       longitude = data.features[0].center[0]
-//       latitude = data.features[0].center[1]
+
+  const geocode = async(address)=>{
+    const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
+    if(response.status === 200){
+      const data = await response.json()
+      console.log(data)
+      console.log(data.features[0].center[0])
+      console.log(data.features[0].center[1])
+      longitude = data.features[0].center[0]
+      latitude = data.features[0].center[1]
+    }
+    //this is for astro API
+    // getPlanetInfo(latitude, longitude);
+    generateWeather(latitude, longitude);
+  
+  }
+
+  
+//save inputs from user and place i Array
+//limit to only 5 inputs in array
+//renders array and places on homepage at the bottom 
+//buttons are clickable for use :)
+
+let locationSaved = []
+    const createdLocation = (input)=>{
+      if(!locationSaved.includes(input)){
+        loadLocation()
+        if(locationSaved.length === 5){
+          locationSaved.shift()
+        }
+        locationSaved.push(input)
+        saveLocation()
+      } 
+    }
+
+const saveLocation = ()=>{
+    localStorage.setItem('location', JSON.stringify(locationSaved))
+}
+  
+    const loadLocation = ()=>{
+      const locationJSON = localStorage.getItem('location')
+      try{
+        locationSaved = locationJSON ? JSON.parse(locationJSON) : []
+      }catch (error){
+        locationSaved = []
+      }
+    }
+    
+    const collection = document.querySelector('.collection')
+    
+    const generateSavedLocation = ()=>{
+      loadLocation()
       
-
-//     }
-//     //this is for astro API
-//     // getPlanetInfo(latitude, longitude)
-    
-
-//   }
-
-  
-// //save inputs from user and place i Array
-// //limit to only 5 inputs in array
-// //renders array and places on homepage at the bottom 
-// //buttons are clickable for use :)
-
-// let locationSaved = []
-//     const createdLocation = (input)=>{
-//       if(!locationSaved.includes(input)){
-//         loadLocation()
-//         if(locationSaved.length === 5){
-//           locationSaved.shift()
-//         }
-//         locationSaved.push(input)
-//         saveLocation()
-//       } 
-//     }
-
-// const saveLocation = ()=>{
-//     localStorage.setItem('location', JSON.stringify(locationSaved))
-// }
-  
-//     const loadLocation = ()=>{
-//       const locationJSON = localStorage.getItem('location')
-//       try{
-//         locationSaved = locationJSON ? JSON.parse(locationJSON) : []
-//       }catch (error){
-//         locationSaved = []
-//       }
-//     }
-    
-//     const collection = document.querySelector('.collection')
-    
-//     const generateSavedLocation = ()=>{
-//       loadLocation()
-      
-//       collection.innerHTML = ''
-//       if(locationSaved.length > 0){
-//         locationSaved.forEach((location)=>{
+      collection.innerHTML = ''
+      if(locationSaved.length > 0){
+        locationSaved.forEach((location)=>{
           
-//           const locationEl = document.createElement('a')
-//           locationEl.setAttribute('href', '#!')
-//           locationEl.setAttribute('class', 'collection-item')
+          const locationEl = document.createElement('a')
+          locationEl.setAttribute('href', '#!')
+          locationEl.setAttribute('class', 'collection-item')
           
-//           locationEl.textContent = location
+          locationEl.textContent = location
           
-//           locationEl.addEventListener('click', (e)=>{
-//               e.preventDefault()
-//               console.log(e.target.innerText)
-//               address = e.target.innerText
-//               e.target.innerText = ''
-//               geocode(address)
-//               createdLocation(address)
-//               generateSavedLocation()
-//           })
-//           collection.appendChild(locationEl)
-//         })
-//       }
-//     }
-//     generateSavedLocation()
-  
- /////////////////////////////////////////////   
-// }
+          locationEl.addEventListener('click', (e)=>{
+              e.preventDefault()
+              console.log(e.target.innerText)
+              address = e.target.innerText
+              e.target.innerText = ''
+              geocode(address)
+              createdLocation(address)
+              generateSavedLocation()
+          })
+          collection.appendChild(locationEl)
+        })
+      }
+    }
+    generateSavedLocation()
+ ///////////////////////////////////////////     
 
-  
-  
 // dummy planet data
 var marsX = 277.29;
 var marsY = -55.17;
@@ -471,7 +462,7 @@ planetImageEl.setAttribute('src', 'assets/img/planets/Mars.png');
 var planetContentEl = document.createElement('div');
 planetContentEl.setAttribute('class', 'card-content');
 var planetHeader = document.createElement('h4');
-planetHeader.textContent = "Mars" 
+planetHeader.textContent = "Mars" ;
 var planetContent = document.createElement('p');
 planetContent.textContent = "Coordinates: " + marsX + ", " + marsY + " Horizon: " + marsR + " Brightness: " + marsM;
 planetImageDivEl.append(planetImageEl);
@@ -491,6 +482,7 @@ var slider = document.getElementById('test-slider');
    range: {
      'min': 0,
      'max': 72
+
     },
 // Updated format to remove decimal value   
     format: {
