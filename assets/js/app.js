@@ -182,131 +182,303 @@ function getAstro() {
 
 getAstro()
 
-// //** start of get weather function
-// var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
-// var zipcodeNUM = '78634' ;
+//** start of get weather function
+var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
-// // Get weather function 
-// // will grab weather information from API 
-// // data responds in current, forecast , location
+// this parameter will change, depending to input from user 
+// var weatherLOCNUM = '30.542747,-97.550011' ;
+var weatherLOCNUM;
 
-// console.log("start Get Weather funtion");
+// save a copy of the data received from API call
+var weatherDATA;
 
-// function getWeather () {
-//     fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + zipcodeNUM + '&days=3')
+// function will add latitude and longitude parameters in one single string
+function getWeatherParam (){
+  var lat = latitude.toString();
+  var lon = longitude.toString();
+
+  weatherLOCNUM = lat.concat(",",lon);
+}
+
+// Get weather function 
+// will grab weather information from API based on weatherLOCNUM
+// data responds in current, forecast , location
+function getWeather () {
+  // get latitude and longitude in one string
+  getWeatherParam();
+
+  //start fetch
+    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
-//       .then(function(response){
-//         if (response.ok){
+      .then(function(response){
+        if (response.ok){
 
-//           console.log("response ");
-//           console.log(response);
+          response.json()
+            .then(function(data) {
+              // save data to global parameter to use in display function
+              weatherDATA = data;
 
-//           response.json()
-//             .then(function(data) {
+              // moon phases, sunrise, susnset by day
+              console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
+              console.log("Moonrise time "+ data.forecast.forecastday[0].astro.moonrise);
+              console.log("Moonset time " + data.forecast.forecastday[0].astro.moonset);
+              console.log("Sunrise time " + data.forecast.forecastday[0].astro.sunrise);
+              console.log("Sunset time " + data.forecast.forecastday[0].astro.sunset);
+              
+              // display weather on results page
+              weatherDATAdisplay();
+          });
+        } else {
+          console.log("error");
+        }
+      })
+} 
+// end of getWeather
 
-//               console.log("data ");
-//               console.log(data);
+getWeather(); 
 
-//               console.log("data current conditions ");
-//               console.log(data.current.condition);
-//               console.log("day 1 ");
-//               console.log(data.forecast.forecastday[0]);
-//               console.log("Moon Phase " + data.forecast.forecastday[0].astro.moon_phase);
-//               console.log("Moonrise "+ data.forecast.forecastday[0].astro.moonrise);
-//               console.log("Moonset " + data.forecast.forecastday[0].astro.moonset);
-//               console.log("Sunrise " + data.forecast.forecastday[0].astro.sunrise);
-//               console.log("Sunset " + data.forecast.forecastday[0].astro.sunset);
-//               console.log("humidity " + data.forecast.forecastday[0].day.avghumidity);
-//               console.log("chances of rain " + data.forecast.forecastday[0].day.daily_chance_of_rain);
-//               console.log("By the hour conditions ");
-//               console.log("Chance of rain " + data.forecast.forecastday[0].hour[0].chance_of_rain);
-//               console.log("Cloud " + data.forecast.forecastday[0].hour[0].cloud);
-//               console.log("Sky condition " + data.forecast.forecastday[0].hour[0].condition.text);              // console.log("day 2 ");
-//               // console.log(data.forecast.forecastday[1]);
-//               // console.log("day 3 ");
-//               // console.log(data.forecast.forecastday[2]);
-//           });
-//         } else {
-//           console.log("error");
-//         }
-//       })
 
-// }
+// these variables will change depeending on user input/slider
+var weatherDAY = 1; //present = 0, one day in future = 1, two day in future =2
+var weatherTIME = 12; // military time 0 - 23
 
-// getWeather(); 
-
-//     //pull from MapBox API for latitude and longitude
-// const geocode = async()=>{
-//     const response = await fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g')
-//     if(response.status === 200){
-//       const data = await response.json()
-//       console.log(data.features[0].center[0])
-//     }
-    
-//   }
-//   geocode()
-  
-//   // let address
-//   // const geocode = async(address)=>{
-//   //   const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
-//   //   if(response.status === 200){
-//   //     const data = await response.json()
-//   //     console.log(data.features[0].center[0])
-//   //   }
-    
-//   // }
-//   // geocode(address)
-  
-//   let locationSaved = []
-  
-//   const createdLocation = (input)=>{
-//       locationSaved.push(input)
-//       saveLocation()
-//   }
-  
-  
-//   const saveLocation = ()=>{
-//     localStorage.setItem('location', JSON.stringify(locationSaved))
-//   }
-  
-  
-//   const loadLocation = ()=>{
-//     const locationJSON = locationStorage.getItem('locationSaved')
-  
-//     try{
-//       locationSaved = locationJSON ? JSON.parse(locationJSON) : []
-//     }catch (error){
-//       locationSaved = []
-//     }
-//   }
-  
-  
-//   const generateSavedLocation = (location)=>{
-//     const locationEl = document.createElement('label')
-  
-//     const locationText = document.createElement('span')
-//     locationText.textContent = location.textContent
-//     locationEl.appendChild(locationText)
+// global parameters used on weather display
+var Wind = "Wind: ";
+var Humidity = "Humidity: ";
+var Rain = "Chance of Rain: ";
+var sckyCondition = "SKY Condition: ";
+var mph = " mph";
+var persentageIcon = "%";
+var icon = "http:";
  
-//   }
+var weatherDisplay = document.querySelector('.weather');
+var iconEl = document.createElement('img');
+var projectRow = document.createElement('ul');
+var TemperatureEl = document.createElement('li');
+var TemperatureEl2 = document.createElement('li');
+var WindEl = document.createElement('li');
+var RainEl = document.createElement('li');
+var HumidityEl = document.createElement('li');
+var skyConditionEl = document.createElement('li');
+
+// function will Display weather on results page
+// needs the parameters of date and time to pull data from the weatherDATA
+// weatherDAY , weatherTIME
+function weatherDATAdisplay (){
+  var weatherE1;
+ 
+  console.log("weatherDATA ");
+  console.log(weatherDATA);
+
+  // display icon
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.icon;
+  iconEl.src = icon + weatherE1;
+
+  // display temperature
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].temp_f;
+  TemperatureEl.textContent = weatherE1;
+  TemperatureEl2.textContent = "Temperature";
+
+  // display wind speed
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].wind_mph;
+  WindEl.textContent = Wind + weatherE1 + mph;
+
+  // display humidity
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].humidity;
+  HumidityEl.textContent = Humidity + weatherE1 + persentageIcon;
+
+  // display precipitation percentage
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].chance_of_rain;
+  RainEl.textContent = Rain + weatherE1 + persentageIcon;
+
+  // display skycondition
+  weatherE1 = weatherDATA.forecast.forecastday[weatherDAY].hour[weatherTIME].condition.text;
+  skyConditionEl.textContent = sckyCondition + weatherE1;
+
+  populateBanner(weatherE1); // sends weather conditions to results banner
+
+  // append to list
+  projectRow.append(
+      TemperatureEl,
+      TemperatureEl2,
+      WindEl,
+      HumidityEl,
+      RainEl,
+      skyConditionEl);
+
+  // append list to the results page
+  weatherDisplay.append(iconEl,projectRow);
+  weathersetAtributes();
+}
+// end of weatherDATAdisplay
+
+function weathersetAtributes(){
+  // set weather atributes
+    iconEl.setAttribute("style", "width:100% ");
+    TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
+    TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
+    projectRow.setAttribute("style", "font-size: 12px");
+    weatherDisplay.setAttribute("style", "background-color: #36e5eb");
+}
+// end of weather atributes
+
+// banner loudly declares if planets are visible or not, depending on sky conditions
+function populateBanner(conditions) {
+  var conditions = conditions.toLowerCase();
+  var bannerHeader = document.querySelector(".bannerText");
+  console.log("weather conditions: " + conditions);
+
+  if (conditions == "sunny" || conditions == "clear") {
+    // display "all-clear" banner
+    bannerHeader.textContent = "All clear! The following planets are visible:";
+  } else if (conditions.includes("patchy") || conditions.includes("partly")) {
+    // display "possible" banner
+    bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
+  } else {
+    // display "no visibility banner"
+    bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
+  }
+}
+
+
+///////////////////////////////////////////////
+//pull from MapBox API for latitude and longitude
+let address
+let inputAddress = document.querySelector('#location-input')
+inputAddress.addEventListener('submit', (e)=>{
+  e.preventDefault()
+  console.log(e.target.elements[0].value)
+  address = e.target.elements[0].value
+  e.target.elements[0].value = ''
+  geocode(address)
+  createdLocation(address)
+  generateSavedLocation()
+})
+  
+  const geocode = async(address)=>{
+    const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
+    if(response.status === 200){
+      const data = await response.json()
+      console.log(data)
+      console.log(data.features[0].center[0])
+      console.log(data.features[0].center[1])
+      longitude = data.features[0].center[0]
+      latitude = data.features[0].center[1]
+      
+
+    }
+    //this is for astro API
+    // getPlanetInfo(latitude, longitude)
+    
+
+  }
+
+  
+//save inputs from user and place i Array
+//limit to only 5 inputs in array
+//renders array and places on homepage at the bottom 
+//buttons are clickable for use :)
+
+let locationSaved = []
+    const createdLocation = (input)=>{
+      if(!locationSaved.includes(input)){
+        loadLocation()
+        if(locationSaved.length === 5){
+          locationSaved.shift()
+        }
+        locationSaved.push(input)
+        saveLocation()
+      } 
+    }
+
+const saveLocation = ()=>{
+    localStorage.setItem('location', JSON.stringify(locationSaved))
+}
+  
+    const loadLocation = ()=>{
+      const locationJSON = localStorage.getItem('location')
+      try{
+        locationSaved = locationJSON ? JSON.parse(locationJSON) : []
+      }catch (error){
+        locationSaved = []
+      }
+    }
+    
+    const collection = document.querySelector('.collection')
+    
+    const generateSavedLocation = ()=>{
+      loadLocation()
+      
+      collection.innerHTML = ''
+      if(locationSaved.length > 0){
+        locationSaved.forEach((location)=>{
+          
+          const locationEl = document.createElement('a')
+          locationEl.setAttribute('href', '#!')
+          locationEl.setAttribute('class', 'collection-item')
+          
+          locationEl.textContent = location
+          
+          locationEl.addEventListener('click', (e)=>{
+              e.preventDefault()
+              console.log(e.target.innerText)
+              address = e.target.innerText
+              e.target.innerText = ''
+              geocode(address)
+              createdLocation(address)
+              generateSavedLocation()
+          })
+          collection.appendChild(locationEl)
+        })
+      }
+    }
+    generateSavedLocation()
+  
+ /////////////////////////////////////////////   
 
 
   
-// var locationInput = $('#location')[0];
+  
 
-// var locationName = "";
+// dummy planet data
+var marsX = 277.29;
+var marsY = -55.17;
+var marsR = 17.37;
+var marsM = 1.488;
 
-// // redirect from home page to results page
-// function redirect(event) {
-//   event.preventDefault();
+// created planet display using Materialize cards
+// TODO: loop through available planets
+var availableBodiesDisplay = document.querySelector('.available-bodies');
+var planetCardEl = document.createElement('div');
+planetCardEl.setAttribute('class', 'card horizontal');
+var planetImageDivEl = document.createElement('div');
+planetImageDivEl.setAttribute('class', 'card-image valign-wrapper');
+var planetImageEl = document.createElement('img');
+planetImageEl.setAttribute('src', 'assets/img/planets/Mars.png');
+var planetContentEl = document.createElement('div');
+planetContentEl.setAttribute('class', 'card-content');
+var planetHeader = document.createElement('h4');
+planetHeader.textContent = "Mars" 
+var planetContent = document.createElement('p');
+planetContent.textContent = "Coordinates: " + marsX + ", " + marsY + " Horizon: " + marsR + " Brightness: " + marsM;
+planetImageDivEl.append(planetImageEl);
+planetContentEl.append(planetHeader, planetContent);
+planetCardEl.append(planetImageDivEl, planetContentEl);
+availableBodiesDisplay.append(planetCardEl);
 
-//   // check that user inputted location
-//   if (locationInput.value) {
-//     locationName = locationInput.value;
-//     //console.log(locationName);
-//     location.replace("results.html");
-//   } 
-// }
 
-// $('#submit').on('click', redirect);
-
+//js slider code
+var slider = document.getElementById('test-slider');
+  noUiSlider.create(slider, {
+   start: [20, 80],
+   connect: true,
+   step: 1,
+   orientation: 'horizontal', // 'horizontal' or 'vertical'
+   range: {
+     'min': 0,
+     'max': 100
+   },
+   format: wNumb({
+     decimals: 0
+   })
+ });
