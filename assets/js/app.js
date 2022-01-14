@@ -2,6 +2,13 @@ const astroApiSecret = '6f14831c8a735ba5d7c78419de6f4bd9a270586412858868719ccdb6
 const astroApiId = '1ef02872-a5fd-4790-bebe-b572308c9bb6'
 const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
+//////////////////
+//variables changed in geocode function to be used in astro api and weather api
+let latitude
+let longitude
+//////////////////
+
+
 
 var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
 
@@ -182,6 +189,9 @@ function getAstro() {
 
 getAstro()
 
+// random lat and long to use in the location
+var latitude = 30.542747;
+var longitude = -97.550011;
 //** start of get weather function
 var weatherAPIKEY =  '27bbc4e6b84a47d1b13160933221101' ;
 
@@ -235,7 +245,9 @@ function getWeather () {
 } 
 // end of getWeather
 
+
 getWeather(); 
+
 
 
 // these variables will change depeending on user input/slider
@@ -309,6 +321,7 @@ function weatherDATAdisplay (){
   // append list to the results page
   weatherDisplay.append(iconEl,projectRow);
   weathersetAtributes();
+
 }
 // end of weatherDATAdisplay
 
@@ -330,7 +343,8 @@ function populateBanner(conditions) {
 
   if (conditions == "sunny" || conditions == "clear") {
     // display "all-clear" banner
-    bannerHeader.textContent = "All clear! The following planets are visible:";
+    bannerHeader.textContent = "All clear! The following  dummy
+    s are visible:";
   } else if (conditions.includes("patchy") || conditions.includes("partly")) {
     // display "possible" banner
     bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
@@ -338,7 +352,8 @@ function populateBanner(conditions) {
     // display "no visibility banner"
     bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
   }
-}
+
+// end of weatherDATAdisplay
 
 
 ///////////////////////////////////////////////
@@ -437,9 +452,9 @@ const saveLocation = ()=>{
  /////////////////////////////////////////////   
 
 
+}
   
   
-
 // dummy planet data
 var marsX = 277.29;
 var marsY = -55.17;
@@ -465,6 +480,24 @@ planetImageDivEl.append(planetImageEl);
 planetContentEl.append(planetHeader, planetContent);
 planetCardEl.append(planetImageDivEl, planetContentEl);
 availableBodiesDisplay.append(planetCardEl);
+
+
+//js slider code
+var slider = document.getElementById('test-slider');
+  noUiSlider.create(slider, {
+   start: [20, 80],
+   connect: true,
+   step: 1,
+   orientation: 'horizontal', // 'horizontal' or 'vertical'
+   range: {
+     'min': 0,
+     'max': 100
+   },
+   format: wNumb({
+     decimals: 0
+   })
+ });
+       
 
 
 //js slider code
