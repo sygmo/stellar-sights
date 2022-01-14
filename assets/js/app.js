@@ -351,6 +351,11 @@ function populateBanner(conditions) {
 
 }//////end of generateWeather function
 
+
+//
+
+//
+
 ///////////////////////////////////////////////
 //pull from MapBox API for latitude and longitude
 let address
@@ -379,7 +384,9 @@ inputAddress.addEventListener('submit', (e)=>{
     }
     //this is for astro API
     // getPlanetInfo(latitude, longitude);
+    // document.location.replace(redirectURL);
     generateWeather(latitude, longitude);
+    
     document.location.replace(redirectURL);
     
   }
