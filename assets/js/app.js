@@ -2,10 +2,12 @@ const astroApiSecret = '6f14831c8a735ba5d7c78419de6f4bd9a270586412858868719ccdb6
 const astroApiId = '1ef02872-a5fd-4790-bebe-b572308c9bb6'
 const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
+var redirectURL = './results.html';
+
 //////////////////
 //variables changed in geocode function to be used in astro api and weather api
-// let latitude
-// let longitude
+let latitude
+let longitude
 //////////////////
 
  var requestUrl = new URL("https://api.astronomyapi.com/api/v2/bodies/positions")
@@ -351,97 +353,98 @@ function populateBanner(conditions) {
 
 ///////////////////////////////////////////////
 //pull from MapBox API for latitude and longitude
-// let address
-// let inputAddress = document.querySelector('#location-input')
-// inputAddress.addEventListener('submit', (e)=>{
-//   e.preventDefault()
-//   console.log(e.target.elements[0].value)
-//   address = e.target.elements[0].value
-//   e.target.elements[0].value = ''
-//   geocode(address)
-//   createdLocation(address)
-//   generateSavedLocation()
-// })
+let address
+let inputAddress = document.querySelector('#location-input')
+inputAddress.addEventListener('submit', (e)=>{
+  e.preventDefault()
+  console.log(e.target.elements[0].value)
+  address = e.target.elements[0].value
+  e.target.elements[0].value = ''
+  geocode(address)
+  createdLocation(address)
+  generateSavedLocation()
+})
   
-//   const geocode = async(address)=>{
-//     const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
-//     if(response.status === 200){
-//       const data = await response.json()
-//       console.log(data)
-//       console.log(data.features[0].center[0])
-//       console.log(data.features[0].center[1])
-//       longitude = data.features[0].center[0]
-//       latitude = data.features[0].center[1]
+  const geocode = async(address)=>{
+    const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
+    if(response.status === 200){
+      const data = await response.json()
+      console.log(data)
+      console.log(data.features[0].center[0])
+      console.log(data.features[0].center[1])
+      longitude = data.features[0].center[0]
+      latitude = data.features[0].center[1]
       
 
-//     }
-//     //this is for astro API
-//     // getPlanetInfo(latitude, longitude)
+    }
+    //this is for astro API
+    // getPlanetInfo(latitude, longitude);
+    generateWeather(latitude, longitude);
+    document.location.replace(redirectURL);
     
-
-//   }
+  }
 
   
-// //save inputs from user and place i Array
-// //limit to only 5 inputs in array
-// //renders array and places on homepage at the bottom 
-// //buttons are clickable for use :)
+//save inputs from user and place i Array
+//limit to only 5 inputs in array
+//renders array and places on homepage at the bottom 
+//buttons are clickable for use :)
 
-// let locationSaved = []
-//     const createdLocation = (input)=>{
-//       if(!locationSaved.includes(input)){
-//         loadLocation()
-//         if(locationSaved.length === 5){
-//           locationSaved.shift()
-//         }
-//         locationSaved.push(input)
-//         saveLocation()
-//       } 
-//     }
+let locationSaved = []
+    const createdLocation = (input)=>{
+      if(!locationSaved.includes(input)){
+        loadLocation()
+        if(locationSaved.length === 5){
+          locationSaved.shift()
+        }
+        locationSaved.push(input)
+        saveLocation()
+      } 
+    }
 
-// const saveLocation = ()=>{
-//     localStorage.setItem('location', JSON.stringify(locationSaved))
-// }
+const saveLocation = ()=>{
+    localStorage.setItem('location', JSON.stringify(locationSaved))
+}
   
-//     const loadLocation = ()=>{
-//       const locationJSON = localStorage.getItem('location')
-//       try{
-//         locationSaved = locationJSON ? JSON.parse(locationJSON) : []
-//       }catch (error){
-//         locationSaved = []
-//       }
-//     }
+    const loadLocation = ()=>{
+      const locationJSON = localStorage.getItem('location')
+      try{
+        locationSaved = locationJSON ? JSON.parse(locationJSON) : []
+      }catch (error){
+        locationSaved = []
+      }
+    }
     
-//     const collection = document.querySelector('.collection')
+    const collection = document.querySelector('.collection')
     
-//     const generateSavedLocation = ()=>{
-//       loadLocation()
+    const generateSavedLocation = ()=>{
+      loadLocation()
       
-//       collection.innerHTML = ''
-//       if(locationSaved.length > 0){
-//         locationSaved.forEach((location)=>{
+      collection.innerHTML = ''
+      if(locationSaved.length > 0){
+        locationSaved.forEach((location)=>{
           
-//           const locationEl = document.createElement('a')
-//           locationEl.setAttribute('href', '#!')
-//           locationEl.setAttribute('class', 'collection-item')
+          const locationEl = document.createElement('a')
+          locationEl.setAttribute('href', '#!')
+          locationEl.setAttribute('class', 'collection-item')
           
-//           locationEl.textContent = location
+          locationEl.textContent = location
           
-//           locationEl.addEventListener('click', (e)=>{
-//               e.preventDefault()
-//               console.log(e.target.innerText)
-//               address = e.target.innerText
-//               e.target.innerText = ''
-//               geocode(address)
-//               createdLocation(address)
-//               generateSavedLocation()
-//           })
-//           collection.appendChild(locationEl)
-//         })
-//       }
-//     }
-//     generateSavedLocation()
- /////////////////////////////////////////////     
+          locationEl.addEventListener('click', (e)=>{
+              e.preventDefault()
+              console.log(e.target.innerText)
+              address = e.target.innerText
+              e.target.innerText = ''
+              geocode(address)
+              createdLocation(address)
+              generateSavedLocation()
+          })
+          collection.appendChild(locationEl)
+        })
+      }
+    }
+    generateSavedLocation()
+ ///////////////////////////////////////////     
 
 // dummy planet data
 var marsX = 277.29;
@@ -473,15 +476,23 @@ availableBodiesDisplay.append(planetCardEl);
 //js slider code
 var slider = document.getElementById('test-slider');
   noUiSlider.create(slider, {
-   start: [20, 80],
+   start: [0],
    connect: true,
    step: 1,
    orientation: 'horizontal', // 'horizontal' or 'vertical'
    range: {
      'min': 0,
-     'max': 100
+     'max': 72
    },
-   format: wNumb({
-     decimals: 0
-   })
- });
+   format:({
+       from: function(value) {
+      return parseInt(value);
+      },
+        to: function(value) {
+      return parseInt(value);
+      }
+    })
+
+});
+
+
