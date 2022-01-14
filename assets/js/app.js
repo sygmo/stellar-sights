@@ -478,19 +478,20 @@ var slider = document.getElementById('test-slider');
    connect: true,
    step: 1,
    orientation: 'horizontal', // 'horizontal' or 'vertical'
+   //Updated range min and max
    range: {
      'min': 0,
      'max': 72
-   },
 
-   format:({
-       from: function(value) {
-      return parseInt(value);
-      },
-        to: function(value) {
-      return parseInt(value);
+    },
+// Updated format to remove decimal value   
+    format: {
+      from: function(value) {
+              return parseInt(value);
+          },
+      to: function(value) {
+              return parseInt(value);
+          }
+   
       }
-    })
-
-});
-
+    });
