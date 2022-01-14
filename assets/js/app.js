@@ -483,15 +483,23 @@ availableBodiesDisplay.append(planetCardEl);
 //js slider code
 var slider = document.getElementById('test-slider');
   noUiSlider.create(slider, {
-   start: [20, 80],
+   start: [0],
    connect: true,
    step: 1,
    orientation: 'horizontal', // 'horizontal' or 'vertical'
+   //Updated range min and max
    range: {
      'min': 0,
-     'max': 100
-   },
-   format: wNumb({
-     decimals: 0
-   })
- });
+     'max': 72
+    },
+// Updated format to remove decimal value   
+    format: {
+      from: function(value) {
+              return parseInt(value);
+          },
+      to: function(value) {
+              return parseInt(value);
+          }
+   
+      }
+    });
