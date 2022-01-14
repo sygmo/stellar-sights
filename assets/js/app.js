@@ -352,10 +352,6 @@ function populateBanner(conditions) {
 }//////end of generateWeather function
 
 
-//
-
-//
-
 ///////////////////////////////////////////////
 //pull from MapBox API for latitude and longitude
 let address
@@ -370,6 +366,7 @@ inputAddress.addEventListener('submit', (e)=>{
   generateSavedLocation()
 })
   
+
   const geocode = async(address)=>{
     const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiY3B0cGxhbmV0IiwiYSI6ImNreWFiNXA5OTAzcXkydnA5NWs1NXY1OWwifQ.jMJiAvDc9I0KPpUfg18U8g`)
     if(response.status === 200){
@@ -379,15 +376,11 @@ inputAddress.addEventListener('submit', (e)=>{
       console.log(data.features[0].center[1])
       longitude = data.features[0].center[0]
       latitude = data.features[0].center[1]
-      
-
     }
     //this is for astro API
     // getPlanetInfo(latitude, longitude);
-    // document.location.replace(redirectURL);
-    generateWeather(latitude, longitude);
-    
     document.location.replace(redirectURL);
+    generateWeather(latitude, longitude);
     
   }
 
