@@ -352,6 +352,7 @@ function populateBanner(conditions) {
 }//////end of generateWeather function
 
 
+
 ///////////////////////////////////////////////
 //pull from MapBox API for latitude and longitude
 let address
@@ -484,6 +485,7 @@ var slider = document.getElementById('test-slider');
      'min': 0,
      'max': 72
    },
+
    format:({
        from: function(value) {
       return parseInt(value);
@@ -494,5 +496,4 @@ var slider = document.getElementById('test-slider');
     })
 
 });
-
 
