@@ -2,8 +2,6 @@ const astroApiSecret = '6f14831c8a735ba5d7c78419de6f4bd9a270586412858868719ccdb6
 const astroApiId = '1ef02872-a5fd-4790-bebe-b572308c9bb6'
 const hash = btoa(`${astroApiId}:${astroApiSecret}`);
 
-var redirectURL = './results.html';
-
 //////////////////
 //variables changed in geocode function to be used in astro api and weather api
 let latitude
@@ -380,7 +378,6 @@ inputAddress.addEventListener('submit', (e)=>{
     }
     //this is for astro API
     // getPlanetInfo(latitude, longitude);
-    document.location.replace(redirectURL);
     generateWeather(latitude, longitude);
   
   }
