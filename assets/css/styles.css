@@ -115,14 +115,7 @@ video {
     line-height: 1.1;
 
 }
-/* .btn{
-    display: inline-block;
-    color:#fff;
-    background: linear-gradient(to right,#0e466e,#0a557c,#086489,#0c7396,#1683a1);
-    padding: .5rem 2rem;
-    border:none;
-    border-radius: 5px;
-} */
+
 
 
 .btn-dark{
@@ -147,6 +140,8 @@ video {
     color:#fff;
 }
 
+
+
 /* #what .items .item{
     flex:1;
     text-align: center;
@@ -160,6 +155,7 @@ video {
     color:#fff;
 } */
 
+
 #info {
     font-size: 1.5rem;
 }
@@ -172,13 +168,16 @@ video {
     border: black solid 2px;
 }
 
-.available-bodies {
-}
+
 
 .card-content {
     width: 100%;
 }
 
 h4 {
+
+    margin: 5px 0;}
+
   margin: 5px 0;
 }
+
