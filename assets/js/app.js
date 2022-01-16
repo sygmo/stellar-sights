@@ -68,10 +68,7 @@ inputAddress.addEventListener('submit', (e)=>{
      localStorage.setItem('location', JSON.stringify(locationSaved))
    }
   
-  
-  
-  
-   const collection = document.querySelector('.collection')
+
  
 
 
