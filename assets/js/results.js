@@ -339,7 +339,7 @@ function getWeather () {
   getWeatherParam();
 
   //start fetch
-    fetch('http://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
+    fetch('https://api.weatherapi.com/v1/forecast.json?key=' + weatherAPIKEY + '&q=' + weatherLOCNUM + '&days=3')
     
       .then(function(response){
         if (response.ok){
@@ -380,7 +380,7 @@ var Rain = "Chance of Rain: ";
 var sckyCondition = "SKY Condition: ";
 var mph = " mph";
 var persentageIcon = "%";
-var icon = "http:";
+var icon = "https:";
 
 var weatherDisplay = document.querySelector('.weather');
 weatherDisplay.innerHTML = ''
