@@ -141,6 +141,21 @@ video {
 }
 
 
+
+/* #what .items .item{
+    flex:1;
+    text-align: center;
+    padding:1rem;
+}
+#what .items .item i {
+    background:linear-gradient(to right,#0e466e,#0a557c,#086489,#0c7396,#1683a1);
+    padding: 1rem;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    color:#fff;
+} */
+
+
 #info {
     font-size: 1.5rem;
 }
@@ -160,4 +175,9 @@ video {
 }
 
 h4 {
+
     margin: 5px 0;}
+
+  margin: 5px 0;
+}
+
