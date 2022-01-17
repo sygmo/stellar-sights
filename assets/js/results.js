@@ -450,7 +450,6 @@ function weathersetAtributes(){
     TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
     TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
     projectRow.setAttribute("style", "font-size: 12px");
-    weatherDisplay.setAttribute("style", "background-color: #36e5eb");
 }
 // end of weather atributes
 
@@ -458,17 +457,21 @@ function weathersetAtributes(){
 function populateBanner(conditions) {
   var conditions = conditions.toLowerCase();
   var bannerHeader = document.querySelector(".bannerText");
+  var visibilityEl = document.querySelector(".visibility");
 //   console.log("weather conditions: " + conditions);
 
   if (conditions == "sunny" || conditions == "clear") {
     // display "all-clear" banner
     bannerHeader.textContent = "All clear! The following planets are visible:";
+    visibilityEl.style.backgroundColor = "blue";
   } else if (conditions.includes("patchy") || conditions.includes("partly")) {
     // display "possible" banner
     bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
+    visibilityEl.style.backgroundColor = "purple";
   } else {
     // display "no visibility banner"
     bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
+    visibilityEl.style.backgroundColor = "red";
   }
 }
 }
