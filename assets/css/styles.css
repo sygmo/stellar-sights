@@ -1,3 +1,12 @@
+body {
+    background-color: #050538;
+    color: white;
+}
+
+input {
+    color: white;
+}
+
 .py-1{
     padding:1.5rem 0;
 }
@@ -140,44 +149,34 @@ video {
     color:#fff;
 }
 
-
-
-/* #what .items .item{
-    flex:1;
-    text-align: center;
-    padding:1rem;
-}
-#what .items .item i {
-    background:linear-gradient(to right,#0e466e,#0a557c,#086489,#0c7396,#1683a1);
-    padding: 1rem;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    color:#fff;
-} */
-
-
 #info {
     font-size: 1.5rem;
 }
 
 .visibility {
-    background-color: #00ffff;
+    background-color: #1683a1;
+    border-radius: 25px;
 }
 
 .weather {
-    border: black solid 2px;
+    border: white solid 2px;
+    background-color: #0a557c;
 }
 
-
+.card {
+    border: #1683a1 solid 5px;
+    color: black;
+}
 
 .card-content {
     width: 100%;
 }
 
+h3 {
+    padding: 0;
+}
+
 h4 {
-
-    margin: 5px 0;}
-
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
