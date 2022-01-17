@@ -84,7 +84,6 @@ inputAddress.addEventListener('submit', (e)=>{
       }
     }
     
-    const collection = document.querySelector('.collection')
     
     const generateSavedLocation = ()=>{
       loadLocation()
