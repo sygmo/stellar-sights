@@ -167,6 +167,7 @@ video {
 }
 
 .card {
+    background-color: rgb(180, 220, 221);
     color: black;
     border: #1683a1 solid 5px;
 }

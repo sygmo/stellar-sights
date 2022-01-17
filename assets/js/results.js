@@ -136,22 +136,22 @@ let planetInfoMValue = (mValue, statement)=>{
        xValues.forEach((xValue)=>{
             if(planetCounter !== 4){
                     if (xValue < 0){
-                        statement = 'Position: below the horizon'
+                        statement = 'Position: Below the horizon'
                         planetInfoXValue(statement, '')
                
                     }else if (xValue < 30){
-                        statement = 'Position: low in the sky'
+                        statement = 'Position: Low in the sky'
                         planetInfoXValue(statement, '')
                 
                     }else if (xValue < 60){
-                        statement = 'Position: around 45 degrees in the sky.'
+                        statement = 'Position: Around 45 degrees in the sky.'
                         planetInfoXValue(statement, '')
                 
                     }else if (xValue <= 89){
-                        statement = 'Position: very high in the sky'
+                        statement = 'Position: Very high in the sky'
                         planetInfoXValue(statement, '')
                     }else if (xValue > 90){
-                        statement = 'Position: below the horizon.'
+                        statement = 'Position: Below the horizon.'
                         planetInfoXValue(statement, '')
                 
                     }else{
