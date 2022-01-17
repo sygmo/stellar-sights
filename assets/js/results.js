@@ -20,7 +20,7 @@ let weathDate = 0
 let weathTime = moment(startDate).format('H')
 
 let planetInfo = [[],[],[],[],[],[],[],[],[],[],[]] 
-let pics = ['assets/img/planets/Mercury.png','assets/img/planets/Mercury.png','assets/img/planets/Mercury.png','assets/img/planets/Venus.png','assets/img/planets/Mercury.png','assets/img/planets/Mars.png','assets/img/planets/Jupiter.png','assets/img/planets/Saturn.png','assets/img/planets/Neptune.png','assets/img/planets/Uranus.png','assets/img/planets/Mercury.png']
+let pics = ['assets/img/planets/Mercury.png','assets/img/planets/Mercury.png','assets/img/planets/Mercury.png','assets/img/planets/Venus.png','assets/img/planets/Mars.png','assets/img/planets/Jupiter.png','assets/img/planets/Saturn.png','assets/img/planets/Neptune.png','assets/img/planets/Uranus.png','assets/img/planets/Mercury.png']
 
 
 let getPlanetInfo = async()=>{
@@ -450,7 +450,7 @@ function weathersetAtributes(){
     TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
     TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
     projectRow.setAttribute("style", "font-size: 12px");
-    weatherDisplay.setAttribute("style", "background-color: #36e5eb");
+    //weatherDisplay.setAttribute("style", "background-color: #36e5eb");
 }
 // end of weather atributes
 
@@ -458,17 +458,21 @@ function weathersetAtributes(){
 function populateBanner(conditions) {
   var conditions = conditions.toLowerCase();
   var bannerHeader = document.querySelector(".bannerText");
+  var bannerEl = document.querySelector(".visibility");
 //   console.log("weather conditions: " + conditions);
 
   if (conditions == "sunny" || conditions == "clear") {
     // display "all-clear" banner
     bannerHeader.textContent = "All clear! The following planets are visible:";
+    bannerEl.style.backgroundColor = "#1683a1"
   } else if (conditions.includes("patchy") || conditions.includes("partly")) {
     // display "possible" banner
     bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
+    bannerEl.style.backgroundColor = "purple";
   } else {
     // display "no visibility banner"
     bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
+    bannerEl.style.backgroundColor = "red";
   }
 }
 }
