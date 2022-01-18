@@ -20,7 +20,7 @@ let weathDate = 0
 let weathTime = moment(startDate).format('H')
 
 let planetInfo = [[],[],[],[],[],[],[],[],[],[],[]] 
-let pics = ['assets/img/planets/Mercury.png','assets/img/planets/Mercury.png','assets/img/planets/Mercury.png','assets/img/planets/Venus.png','assets/img/planets/Mercury.png','assets/img/planets/Mars.png','assets/img/planets/Jupiter.png','assets/img/planets/Saturn.png','assets/img/planets/Neptune.png','assets/img/planets/Uranus.png','assets/img/planets/Mercury.png']
+let pics = ['assets/img/planets/Sun.png','assets/img/planets/Moon.png','assets/img/planets/Mercury.png','assets/img/planets/Venus.png','assets/img/planets/Mercury.png','assets/img/planets/Mars.png','assets/img/planets/Jupiter.png','assets/img/planets/Saturn.png','assets/img/planets/Neptune.png','assets/img/planets/Uranus.png','assets/img/planets/Pluto.png']
 
 
 let getPlanetInfo = async()=>{
@@ -136,27 +136,27 @@ let planetInfoMValue = (mValue, statement)=>{
        xValues.forEach((xValue)=>{
             if(planetCounter !== 4){
                     if (xValue < 0){
-                        statement = ' is below the horizon'
-                        planetInfoXValue(xValue, statement)
+                        statement = 'Position: Below the horizon'
+                        planetInfoXValue(statement, '')
                
                     }else if (xValue < 30){
-                        statement = ' is low in the sky'
-                        planetInfoXValue(xValue, statement)
+                        statement = 'Position: Low in the sky'
+                        planetInfoXValue(statement, '')
                 
                     }else if (xValue < 60){
-                        statement = ' is around 45 degrees in the sky.'
-                        planetInfoXValue(xValue, statement)
+                        statement = 'Position: Around 45 degrees in the sky.'
+                        planetInfoXValue(statement, '')
                 
                     }else if (xValue <= 89){
-                        statement = ' is very high in the sky'
-                        planetInfoXValue(xValue, statement)
+                        statement = 'Position: Very high in the sky'
+                        planetInfoXValue(statement, '')
                     }else if (xValue > 90){
-                        statement = ' is below the horizon.'
-                        planetInfoXValue(xValue, statement)
+                        statement = 'Position: Below the horizon.'
+                        planetInfoXValue(statement, '')
                 
                     }else{
                         statement = 'ERROR: X Coordinates are not functioning.'
-                        planetInfoXValue(xValue, statement)
+                        planetInfoXValue(statement, '')
                     }
             }else{
                 planetCounter++
@@ -167,44 +167,44 @@ let planetInfoMValue = (mValue, statement)=>{
         yValues.forEach((yValue)=> {
            if(planetCounter !== 4){
                 if (yValue < 30){
-                statement = ' is North'
-                planetInfoYValue(yValue, statement)        
+                statement = 'Direction: North'
+                planetInfoYValue(statement, '')        
             
                 }else if (yValue < 60){
-                    statement = ' is North-East'
-                planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: North-East'
+                planetInfoYValue(statement, '')        
                     
                 }else if (yValue < 120){
-                    statement = ' is East'
-                planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: East'
+                planetInfoYValue(statement, '')        
                     
                 }else if (yValue < 150){
-                    statement = ' is South-East'
-                    planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: South-East'
+                    planetInfoYValue(statement, '')        
                    
                 }else if (yValue < 210){
-                    statement = ' is South'
-                    planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: South'
+                    planetInfoYValue(statement, '')        
 
                 }else if (yValue < 240){
-                    statement = ' is South-West'
-                    planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: South-West'
+                    planetInfoYValue(statement, '')        
 
                 }else if (yValue < 300){
-                    statement = ' is West'
-                    planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: West'
+                    planetInfoYValue(statement, '')        
 
                 }else if (yValue < 330){
-                    statement = ' is North-West'
-                    planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: North-West'
+                    planetInfoYValue(statement, '')        
 
                 }else if (yValue <= 359){
-                    statement = ' is North'
-                    planetInfoYValue(yValue, statement)        
+                    statement = 'Direction: North'
+                    planetInfoYValue(statement, '')        
 
                 }else{
                     statement = 'ERROR: Y Coordinates are not functioning'
-                    planetInfoYValue(yValue, statement)        
+                    planetInfoYValue(statement, '')        
 
                 }
 
@@ -217,44 +217,44 @@ let planetInfoMValue = (mValue, statement)=>{
        mValues.forEach((mValue)=> {
             if(planetCounter !== 4){
                 if (mValue < -13){
-                    statement = "You'll go blind looking at this, stop"
-                    planetInfoMValue(mValue, statement)
+                    statement = "Brightness: Please do not view the sun without specialized equipment."
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < -5){
-                    statement = ' is Very Bright'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Very Bright'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue< 0){
-                    statement = ' is Bright'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Bright'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < 3){
-                    statement = ' is Visible, urban viewable'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Visible, Urban Viewable'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < 6){
-                    statement = 'is Barely visible, rural viewable'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Barely visible, Rural Viewable'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < 9.5){
-                    statement = ' is Faint, viewable with binoculars'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Faint, Viewable with Binoculars'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < 14){
-                    statement = 'is Very Faint, viewable with 12in telescope'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Very Faint, Viewable with 12 inch Telescope'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < 20){
-                    statement = 'is Extremely faint, viewable only with 200in telescope'
-                    planetInfoMValue(mValue, statement)
+                    statement = 'Brightness: Extremely Faint, Viewable only with 200 inch Telescope'
+                    planetInfoMValue(statement, '')
 
                 }else if (mValue < 30){
                     statement = "You don't have the money to do this, and if you do, get off our app NASA, smh"
-                    planetInfoMValue(mValue, statement)
+                    planetInfoMValue(statement, '')
 
                 }else{
                     statement = 'ERROR: Magnitude not functioning'
-                    planetInfoMValue(mValue, statement)
+                    planetInfoMValue(statement, '')
 
                     }
             }else{
@@ -450,7 +450,6 @@ function weathersetAtributes(){
     TemperatureEl.setAttribute("style", "font-size: 40px; font-weight: bold");
     TemperatureEl2.setAttribute("style", "font-size: 18px; font-weight: bold");
     projectRow.setAttribute("style", "font-size: 12px");
-    weatherDisplay.setAttribute("style", "background-color: #36e5eb");
 }
 // end of weather atributes
 
@@ -458,17 +457,21 @@ function weathersetAtributes(){
 function populateBanner(conditions) {
   var conditions = conditions.toLowerCase();
   var bannerHeader = document.querySelector(".bannerText");
+  var visibilityEl = document.querySelector(".visibility");
 //   console.log("weather conditions: " + conditions);
 
   if (conditions == "sunny" || conditions == "clear") {
     // display "all-clear" banner
     bannerHeader.textContent = "All clear! The following planets are visible:";
+    visibilityEl.style.backgroundColor = "blue";
   } else if (conditions.includes("patchy") || conditions.includes("partly")) {
     // display "possible" banner
     bannerHeader.textContent = "Sky conditions are spotty, but the following planets may be visible:";
+    visibilityEl.style.backgroundColor = "purple";
   } else {
     // display "no visibility banner"
     bannerHeader.textContent = "Sky conditions are poor. The following planets cannot be seen:"
+    visibilityEl.style.backgroundColor = "red";
   }
 }
 }
